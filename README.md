@@ -36,7 +36,14 @@ var eewDepth = "data.depth"; //填入地震预警api中 震源深度 的json路�
 var eewMaxInt = "data.maxInt"; //填入地震预警api中 最大烈度 的json路径  这里已举例出
 var eewMd5 = "data.md5"; //填入地震预警api中 md5 的json路径  这里已举例出
 ```
-2. 双击```index.html```运行。
+2. 到```js/location.js```填入所在地经纬度及地名。例：
+```
+var locationLat = 29.8337; //填入所在地纬度 [北纬为正，南纬为负]
+var locationLon = 106.4295; //填入所在地经度 [东经为正，西经为负]
+var locationName = 重庆北碚; //填入所在地地名
+```
+
+3. 打开```index.html```运行。
 
 ## 免责声明
 本开源项目仅供知识科普、学习交流使用，不涉及任何 机构/私企 等的知识产权。信息源均由用户自主填写，与项目开发者无关。
