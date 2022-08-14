@@ -1,3 +1,4 @@
+# 项目预计9月中旬正式开源。
 # CEIV (Chinese Earthquake Information Viewer)
 🌐 一个开源的中国地震信息可视化项目。
 
