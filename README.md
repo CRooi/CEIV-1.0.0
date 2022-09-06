@@ -10,5 +10,8 @@
   - 1️⃣ 自定位置横波抵达倒数、烈度粗估
 - ℹ️ 重庆北碚测站信息整合 (https://wolfx.jp/home/rpishake.html)
 
+## ✅演示站点
+https://app.projectbs.cn/ceiv/index-formal.html
+
 ## ⚠️开源协议
 本项目仅可**独立使用**，请勿用于网页（软件）镶嵌等场景。
