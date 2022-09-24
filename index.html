@@ -22,30 +22,6 @@
             <div id="loading_Text">载入中</div>
             <div id="loading_Text2"></div>
         </div>
-        <script>
-        var version = "1.0.0 LTS";
-        var apiVertion = "formal";
-        var exp = false;
-        
-        if (apiVertion == "test") {
-            if (exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 测试接口 实验版<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
-            if (!exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 测试接口<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
-        }
-        
-        if (apiVertion == "formal"){
-            if (exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 正式接口 实验版<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
-            if (!exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 正式接口<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
-        }
-        addEventListener("load",function(){
-            setTimeout(function(){
-                $("#loading_Background").fadeTo("slow", 0);
-            },1000);
-            setTimeout(function(){
-                $("#loading_Background").css("height", "0px");
-                $("#loading_Background").css("width", "0px");
-            },2000)
-        });
-        </script>
         <div id="map">
             <iframe src="https://bousai.cn/LocalShindo/index.html" id="bbshindo" scrolling="no" frameBorder=0 style="width:302px"></iframe>
             <div id="currentTime">2080-01-01 00:00:00</div>
@@ -121,46 +97,6 @@
         </div>
         <script>
             console.log("Chinese Earthquake List\nPowered By Yorushi & Yowot")
-
-            //定义烈度配色
-            const intColor = {
-                "1": {
-                    "bkcolor": "#9bc4e4"
-                },
-                "2": {
-                    "bkcolor": "#00a0f1"
-                },
-                "3": {
-                    "bkcolor": "#0062f5"
-                },
-                "4": {
-                    "bkcolor": "#2de161"
-                },
-                "5": {
-                    "bkcolor": "#1cac5d"
-                },
-                "6": {
-                    "bkcolor": "#bdb93b"
-                },
-                "7": {
-                    "bkcolor": "#ffba3d"
-                },
-                "8": {
-                    "bkcolor": "#c38b2c"
-                },
-                "9": {
-                    "bkcolor": "#c75622"
-                },
-                "10": {
-                    "bkcolor": "#ff000d"
-                },
-                "11": {
-                    "bkcolor": "#c20007"
-                },
-                "12": {
-                    "bkcolor": "#fd2fc2"
-                }
-            };
 
             //第一行
             function getMainData() {
@@ -249,5 +185,6 @@
             setInterval(getMainData, 5000);
             setInterval(getSubData, 5000);
         </script>
+        <script src="./js/index.js" type="text/javascript" charset="utf-8"></script>
     </body>
 </html>
