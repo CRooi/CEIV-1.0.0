@@ -11,6 +11,7 @@
 - ℹ️ 重庆北碚测站信息整合 (https://wolfx.jp/home/rpishake.html)
 
 ## ✅演示站点
+https://bousai.cn/CEIV-1.0.0/index-formal.html
 https://app.projectbs.cn/ceiv/index-formal.html
 
 ## ⚠️开源协议

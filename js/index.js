@@ -991,22 +991,22 @@ function fullScreenCheck() {
 setInterval(fullScreenCheck, 1000);
 
 function currentTimeDisplay() {
-	$.getJSON("https://api.projectbs.cn/red68/latest.json?" + currentTime,
-	function(json) {
-		latestTimeDetail = json.create_at;
-		document.getElementById("currentTime").innerHTML = latestTimeDetail;
-		if (iclSta) {
-			if (iclType == "地震预警（测试）") $("#currentTime").css("color", "#ffcc65");
-			if (iclType == "地震预警") $("#currentTime").css("color", "white");
-		}
-		if (!iclSta) {
-			$("#currentTime").css("color", "white");
-		}
-		bbCalcshindo = json.calcshindo;
-		bbPGA = json.pga;
-		if (bbzdMap == "shindo") $(".bbshindoMapPoint").css("background-color", calclocalshindocolor(bbCalcshindo, bbCalcshindo - parseInt(bbCalcshindo)));
-		if (bbzdMap == "PGA") $(".bbshindoMapPoint").css("background-color", calclocalpgacolor(bbPGA));
-	})
+    $.getJSON("https://api.projectbs.cn/red68/latest.json?" + currentTime,
+    function(json) {
+        latestTimeDetail = json.create_at;
+        document.getElementById("currentTime").innerHTML = latestTimeDetail;
+        if (iclSta) {
+            if (iclType == "地震预警（测试）") $("#currentTime").css("color", "#ffcc65");
+            if (iclType == "地震预警") $("#currentTime").css("color", "white");
+        }
+        if (!iclSta) {
+            $("#currentTime").css("color", "white");
+        }
+        bbPGA = json.max_acc;
+        bbCalcshindo = (2 * Math.log10(bbPGA) + 0.94);
+        if (bbzdMap == "shindo") $(".bbshindoMapPoint").css("background-color", calclocalshindocolor(bbCalcshindo, bbCalcshindo - parseInt(bbCalcshindo)));
+        if (bbzdMap == "PGA") $(".bbshindoMapPoint").css("background-color", calclocalpgacolor(bbPGA));
+    })
 }
 setInterval(currentTimeDisplay, 1000);
 function backToEpicenter(){

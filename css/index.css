@@ -1,6 +1,6 @@
 @font-face {
 	font-family:"ysbth";
-	src:url("https://app.projectbs.cn/ceiv/YouSheBiaoTiHei-2.ttf") format("truetype");
+	src:url("https://bousai.cn/fonts/YouSheBiaoTiHei-2.ttf") format("truetype");
 }
 @font-face {
 	font-family:"oppo-H";
@@ -418,6 +418,38 @@ a:visited {
 	font-weight:bold;
 	font-family:oppo-B,sans-serif;
 }
+#loading_Background {
+	position:absolute;
+	height:100%;
+	width:100%;
+	background-color:#222222;
+	z-index:9999999999;
+}
+#loading_Logo {
+	position:absolute;
+	height:53px;
+	width:300px;
+	top:50%;
+	margin-top:-53px;
+	left:50%;
+	margin-left:-150px;
+}
+#loading_Text {
+	position:absolute;
+	top:352px;
+	font-size:30px;
+	color:#fff;
+	text-align:center;
+	width:100%;
+}
+#loading_Text2 {
+	position:absolute;
+	right:5px;
+	bottom:10px;
+	color:#fff;
+	text-align:right;
+}
+/*Chinese Earthquake List*/
 #mainBar {
 	position:relative;
 	top:0px;
@@ -520,38 +552,7 @@ a:visited {
 [id^="subMagnitude"] {
 	position:absolute;
 	right:4px;
-	font-size:21px;
+	font-size:25px;
 	line-height:48px;
 	top:0px;
-}
-#loading_Background {
-	position:absolute;
-	height:100%;
-	width:100%;
-	background-color:#222222;
-	z-index:9999999999;
-}
-#loading_Logo {
-	position:absolute;
-	height:53px;
-	width:300px;
-	top:50%;
-	margin-top:-53px;
-	left:50%;
-	margin-left:-150px;
-}
-#loading_Text {
-	position:absolute;
-	top:352px;
-	font-size:30px;
-	color:#fff;
-	text-align:center;
-	width:100%;
-}
-#loading_Text2 {
-	position:absolute;
-	right:5px;
-	bottom:10px;
-	color:#fff;
-	text-align:right;
 }

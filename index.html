@@ -1,202 +1,253 @@
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.js"></script>
-		<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-		<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-		<link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
-		<script src='https://npmcdn.com/mapbox-gl-circle/dist/mapbox-gl-circle.min.js'></script>
-		<script src="https://wolfx.jp/js/d3-color.v1.min.js"></script>
-		<script src="https://wolfx.jp/js/d3-interpolate.v1.min.js"></script>
-		<script src="https://wolfx.jp/js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
-		<link rel="stylesheet" href="./css/index.css">
-		<title>CEIV</title>
-		<link rel="shortcut icon" href="https://app.projectbs.cn/ceiv/images/favicon.ico">
-	</head>
-	<body>
-	    <div id="loading_Background">
-	        <div id="loading_Logo">
-				<img src="https://app.projectbs.cn/ceiv/pbs_white.png" height="53px" width="300px" />
-			</div>
-			<div id="loading_Text">载入中</div>
-			<div id="loading_Text2"></div>
-	    </div>
-	    <script>
-	    var version = "1.0.0 Build56";
-	    var apiVertion = "formal";
-	    var exp = false;
-	    
-	    if (apiVertion == "test") {
-	        if (exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 测试接口 实验版<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
-	        if (!exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 测试接口<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
-	    }
-	    
-	    if (apiVertion == "formal"){
-	        if (exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 正式接口 实验版<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
-	        if (!exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 正式接口<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
-	    }
-	    addEventListener("load",function(){
-	        setTimeout(function(){
-	            $("#loading_Background").fadeTo("slow", 0);
-	        },1000);
-	        setTimeout(function(){
-	            $("#loading_Background").css("height", "0px");
-	            $("#loading_Background").css("width", "0px");
-	        },2000)
-	    });
-	    </script>
-		<div id="map">
-		    <iframe src="https://app.projectbs.cn/ceiv/bbshindo_new2.html" id="bbshindo" scrolling="no" frameBorder=0 style="width:302px"></iframe>
-		    <div id="currentTime">2080-01-01 00:00:00</div>
-		</div>
-		<!--<iframe src="https://app.projectbs.cn/ceiv/newlist.html" id="list" frameBorder=0></iframe>-->
-		<div id="list">
-		    <div id="mainBar">
-			<div id="mainLeft">
-				<div id="mainTime">01/01 00:00</div>
-				<div id="mainEpicenter">载入中</div>
-				<div id="mainDepth">0<font size="3">&nbsp;km</font></div>
-				<div id="mainMagnitude"><font size="4">M</font>0.0</div>
-			</div>
-			<div id="mainMaxInt">-</div>
-		</div>
-		<!-- 为方便debug，sub直接从2开始 -->
-		<div id="subBar2">
-			<div id="subLeft2">
-				<div id="subTime2">01/01 00:00</div>
-				<div id="subEpicenter2">载入中</div>
-				<div id="subMagnitude2">M0.0</div>
-			</div>
-			<div id="subMaxInt2">-</div>
-		</div>
-		<div id="subBar3">
-			<div id="subLeft3">
-				<div id="subTime3">01/01 00:00</div>
-				<div id="subEpicenter3">载入中</div>
-				<div id="subMagnitude3">M0.0</div>
-			</div>
-			<div id="subMaxInt3">-</div>
-		</div>
-		</div>
-		<div id="status">
-			<span style="position: relative; top: 3px;">
-				<ion-icon name="information-circle"></ion-icon>
-			</span>暂无生效中的地震预警
-		</div>
-		<div id="eewBar">
-		    <div id="eewBar_shindo"></div>
-		    <div id="eewBar_epicenter"></div>
-		    <div id="eewBar_time"></div>
-		    <div id="eewBar_magnitude"></div>
-		    <div id="eewBar_depth"><span style="font-size:15px;"></span></div>
-		</div>
-		<div id="countDown">
-		    <div id="countDown_Border">
-		        <div id="countDown_LocalName">
-		            <span style="position: relative; top: 3px;">
-		            <ion-icon name="navigate-circle-outline"></ion-icon>
-		            </span>
-		            
-		        </div>
-		        <div id="countDown_Number"></div>
-		        <div id="countDown_SText">秒</div>
-		    </div>
-		    <div id="countDown_Text">震感获取中...<br>地震横波将抵达</div>
-		</div>
-		<center><div id="announcement"></div></center>
-		<div id="settingsBu" onclick="settings()">设置</div>
-		<div id="fullScreenBu" onclick="fullScreenF()">全屏显示</div>
-		<div id="backToEpicenterBu" onclick="backToEpicenter()">返回震中</div>
-		<div id="settingsBackground" onclick="settingsCancel()"></div>
-		<div id="settingsWindow">
-		    <div id="settingsTitle">设置</div>
-		    <div id="settings_LocalTitle">所在地&nbsp;<input type="text" id="settings_LocalInputName">&nbsp;<button onclick="geoIP()">自动获取</button></div>
-		    <div id="settings_LocalLine">纬度&nbsp;<input type="text" id="settings_LocalInputLat">&nbsp;经度&nbsp;<input type="text" id="settings_LocalInputLon"></div>
-		    <div id="boundCb">&nbsp;<input type="checkbox" id="zdsf" checked="true"/><label for="">&nbsp;自动缩放</label></div>
-		    <div id="bbshindoCb">&nbsp;<input type="checkbox" id="bbzd" checked="true" onclick="bbzdCbCheck()"/><label for="">&nbsp;重庆北碚实时震度</label>&nbsp;&nbsp;地图显示&nbsp;<select id="bbzdMap"><option>PGA</option><option>震度</option></select></div>
-		    <div id="aboutInfo"><center><img src='https://app.projectbs.cn/ceiv/pbs_white.png' style="cursor:hand; height:35px; width:200px;" onclick="javascript:location.href='https://projectbs.cn'"></center><br/><div id="settingsVertion"></div><a href="https://beian.miit.gov.cn">渝ICP备2022007612号</a><br/><span style="position: relative; top: 3px;"><img src="https://projectbs.cn/备案图标.png"></span>渝公网安备50023202000282号</div>
-		    <div id="settingsCloseBu" onclick="settingsSaveClose()">保存并关闭</div>
-		    <div id="settingsCancelBu" onclick="settingsCancel()">取消</div>
-		</div>
-		<script>
-			console.log("Chinese Earthquake List\nPowered By Yorushi & Yowot")
-			
-			//第一行
-			function getMainData(){
-				$.getJSON("https://api.projectbs.cn/v2/ceic/get_data.json?"+new Date().getTime(),function(json){
-					mainType = json.data.type;
-					mainDepth = json.data.depth;
-					mainEpicenter = json.data.epicenter;
-					mainStartAt = json.data.occurTime;
-					mainMagnitude = json.data.magnitude;
-					mainMaxInt = calcMaxInt(mainMagnitude,mainDepth);
-					if (mainType == "自动") mainDepth = "?";
-					//startAt 转换
-					mainStartAt = mainStartAt.replace("月","/");
-					mainStartAt = mainStartAt.replace("日"," ")
-					mainStartAt = mainStartAt.replace("时",":")
-					mainTime = mainStartAt.replace("分","")
-					//写入数据
-					$("#mainTime").text(mainTime);
-					$("#mainEpicenter").text(mainEpicenter);
-					document.getElementById("mainDepth").innerHTML = mainDepth + '<font size="3">&nbsp;km</font>';
-					document.getElementById("mainMagnitude").innerHTML = '<font size="4">M</font>' + mainMagnitude;
-					$("#mainMaxInt").css("background-color", intColor[mainMaxInt].bkcolor);
-					$("#mainMaxInt").text(mainMaxInt);
-				})
-			};
-			
-			for (ii=4;ii<=50;ii++){
-				$("#subBar"+Number(ii-1)).after('<div id="subBar'+ii+'"><div id="subLeft'+ii+'"><div id="subTime'+ii+'">01/01 00:00</div><div id="subEpicenter'+ii+'">载入中</div><div id="subMagnitude'+ii+'">M0.0</div></div><div id="subMaxInt'+ii+'">-</div></div>')
-			};
-			
-			//剩下的行
-			function getSubData(){
-				$.getJSON("https://api.wolfx.jp/cenc_eqlist.json?"+new Date().getTime(),function(json){
-					for (i=2;i<=50;i++){
-						subTime = eval("json.No"+i+".time");
-						subTime = subTime.substring(5,19);
-						subTime = subTime.replace(/-/g, '/');
-						subEpicenter = eval("json.No"+i+".location");
-						subMagnitude = eval("json.No"+i+".magnitude");
-						subDepth = eval("json.No"+i+".depth");
-						subMaxInt = calcMaxInt(subMagnitude,subDepth);
-						calcSubEpicenterFontSize(subEpicenter,i);
-						$("#subTime"+i).text(subTime);
-						$("#subEpicenter"+i).text(subEpicenter);
-						$("#subMagnitude"+i).text("M"+subMagnitude);
-						$("#subMaxInt"+i).text(subMaxInt);
-						$("#subMaxInt"+i).css("background-color", intColor[subMaxInt].bkcolor);
-					}
-				})
-			};
-			
-			//计算sub最大烈度
-			function calcMaxInt(calcMagnitude,calcDepth){
-					numa = (calcMagnitude)/2.08*2.82;
-					numb = (calcDepth)*-0.013;
-					maxInt = Math.round(numa+numb);
-					if (maxInt > 12) maxInt = 12;
-					if (maxInt < 1) maxInt = 1;
-					return(maxInt);
-			};
-			
-			//subEpicenter 字体大小自适应
-			function calcSubEpicenterFontSize(epicenter,locate){
-					if(epicenter.length >= 10){
-						$("#subEpicenter"+locate).css("font-size","16px")
-						$("#subEpicenter"+locate).css("top", "4px");
-					}else{
-						$("#subEpicenter"+locate).css("font-size","20px")
-					}
-			};
-			
-			//初始化运行函数 & 计时器
-			getMainData();
-			getSubData();
-			setInterval(getMainData,5000);
-			setInterval(getSubData,5000)
-		</script>
-	</body>
+    <head>
+        <meta charset="utf-8" />
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.js"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+        <script src='https://npmcdn.com/mapbox-gl-circle/dist/mapbox-gl-circle.min.js'></script>
+        <script src="https://wolfx.jp/js/d3-color.v1.min.js"></script>
+        <script src="https://wolfx.jp/js/d3-interpolate.v1.min.js"></script>
+        <script src="https://wolfx.jp/js/jquery-3.6.1.min.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="./css/index.css">
+        <title>CEIV</title>
+        <link rel="shortcut icon" href="https://app.projectbs.cn/ceiv/images/favicon.ico">
+    </head>
+    <body>
+        <div id="loading_Background">
+            <div id="loading_Logo">
+                <img src="https://app.projectbs.cn/ceiv/pbs_white.png" height="53px" width="300px" />
+            </div>
+            <div id="loading_Text">载入中</div>
+            <div id="loading_Text2"></div>
+        </div>
+        <script>
+        var version = "1.0.0 LTS";
+        var apiVertion = "formal";
+        var exp = false;
+        
+        if (apiVertion == "test") {
+            if (exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 测试接口 实验版<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
+            if (!exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 测试接口<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
+        }
+        
+        if (apiVertion == "formal"){
+            if (exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 正式接口 实验版<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
+            if (!exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 正式接口<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
+        }
+        addEventListener("load",function(){
+            setTimeout(function(){
+                $("#loading_Background").fadeTo("slow", 0);
+            },1000);
+            setTimeout(function(){
+                $("#loading_Background").css("height", "0px");
+                $("#loading_Background").css("width", "0px");
+            },2000)
+        });
+        </script>
+        <div id="map">
+            <iframe src="https://bousai.cn/LocalShindo/index.html" id="bbshindo" scrolling="no" frameBorder=0 style="width:302px"></iframe>
+            <div id="currentTime">2080-01-01 00:00:00</div>
+        </div>
+        <!--<iframe src="https://app.projectbs.cn/ceiv/newlist.html" id="list" frameBorder=0></iframe>-->
+        <div id="list">
+            <div id="mainBar">
+            <div id="mainLeft">
+                <div id="mainTime">01/01 00:00</div>
+                <div id="mainEpicenter">载入中</div>
+                <div id="mainDepth">0<font size="3">&nbsp;km</font></div>
+                <div id="mainMagnitude"><font size="4">M</font>0.0</div>
+            </div>
+            <div id="mainMaxInt">-</div>
+        </div>
+        <!-- 为方便debug，sub直接从2开始 -->
+        <div id="subBar2">
+            <div id="subLeft2">
+                <div id="subTime2">01/01 00:00</div>
+                <div id="subEpicenter2">载入中</div>
+                <div id="subMagnitude2">M0.0</div>
+            </div>
+            <div id="subMaxInt2">-</div>
+        </div>
+        <div id="subBar3">
+            <div id="subLeft3">
+                <div id="subTime3">01/01 00:00</div>
+                <div id="subEpicenter3">载入中</div>
+                <div id="subMagnitude3">M0.0</div>
+            </div>
+            <div id="subMaxInt3">-</div>
+        </div>
+        </div>
+        <div id="status">
+            <span style="position: relative; top: 3px;">
+                <ion-icon name="information-circle"></ion-icon>
+            </span>暂无生效中的地震预警
+        </div>
+        <div id="eewBar">
+            <div id="eewBar_shindo"></div>
+            <div id="eewBar_epicenter"></div>
+            <div id="eewBar_time"></div>
+            <div id="eewBar_magnitude"></div>
+            <div id="eewBar_depth"><span style="font-size:15px;"></span></div>
+        </div>
+        <div id="countDown">
+            <div id="countDown_Border">
+                <div id="countDown_LocalName">
+                    <span style="position: relative; top: 3px;">
+                    <ion-icon name="navigate-circle-outline"></ion-icon>
+                    </span>
+                    
+                </div>
+                <div id="countDown_Number"></div>
+                <div id="countDown_SText">秒</div>
+            </div>
+            <div id="countDown_Text">震感获取中...<br>地震横波将抵达</div>
+        </div>
+        <center><div id="announcement"></div></center>
+        <div id="settingsBu" onclick="settings()">设置</div>
+        <div id="fullScreenBu" onclick="fullScreenF()">全屏显示</div>
+        <div id="backToEpicenterBu" onclick="backToEpicenter()">返回震中</div>
+        <div id="settingsBackground" onclick="settingsCancel()"></div>
+        <div id="settingsWindow">
+            <div id="settingsTitle">设置</div>
+            <div id="settings_LocalTitle">所在地&nbsp;<input type="text" id="settings_LocalInputName">&nbsp;<button onclick="geoIP()">自动获取</button></div>
+            <div id="settings_LocalLine">纬度&nbsp;<input type="text" id="settings_LocalInputLat">&nbsp;经度&nbsp;<input type="text" id="settings_LocalInputLon"></div>
+            <div id="boundCb">&nbsp;<input type="checkbox" id="zdsf" checked="true"/><label for="">&nbsp;自动缩放</label></div>
+            <div id="bbshindoCb">&nbsp;<input type="checkbox" id="bbzd" checked="true" onclick="bbzdCbCheck()"/><label for="">&nbsp;重庆北碚实时震度</label>&nbsp;&nbsp;地图显示&nbsp;<select id="bbzdMap"><option>PGA</option><option>震度</option></select></div>
+            <div id="aboutInfo"><center><img src='https://app.projectbs.cn/ceiv/pbs_white.png' style="cursor:hand; height:35px; width:200px;" onclick="javascript:location.href='https://projectbs.cn'"></center><br/><div id="settingsVertion"></div></div>
+            <div id="settingsCloseBu" onclick="settingsSaveClose()">保存并关闭</div>
+            <div id="settingsCancelBu" onclick="settingsCancel()">取消</div>
+        </div>
+        <script>
+            console.log("Chinese Earthquake List\nPowered By Yorushi & Yowot")
+
+            //定义烈度配色
+            const intColor = {
+                "1": {
+                    "bkcolor": "#9bc4e4"
+                },
+                "2": {
+                    "bkcolor": "#00a0f1"
+                },
+                "3": {
+                    "bkcolor": "#0062f5"
+                },
+                "4": {
+                    "bkcolor": "#2de161"
+                },
+                "5": {
+                    "bkcolor": "#1cac5d"
+                },
+                "6": {
+                    "bkcolor": "#bdb93b"
+                },
+                "7": {
+                    "bkcolor": "#ffba3d"
+                },
+                "8": {
+                    "bkcolor": "#c38b2c"
+                },
+                "9": {
+                    "bkcolor": "#c75622"
+                },
+                "10": {
+                    "bkcolor": "#ff000d"
+                },
+                "11": {
+                    "bkcolor": "#c20007"
+                },
+                "12": {
+                    "bkcolor": "#fd2fc2"
+                }
+            };
+
+            //第一行
+            function getMainData() {
+                $.getJSON("https://api.projectbs.cn/v2/ceic/get_data.json?" + new Date().getTime(), function(json) {
+                    mainType = json.data.type;
+                    mainDepth = json.data.depth;
+                    mainEpicenter = json.data.epicenter;
+                    mainStartAt = json.data.occurTime;
+                    mainMagnitude = json.data.magnitude;
+                    //startAt 转换
+                    mainStartAt = mainStartAt.replace("月", "/");
+                    mainStartAt = mainStartAt.replace("日", " ")
+                    mainStartAt = mainStartAt.replace("时", ":")
+                    mainTime = mainStartAt.replace("分", "")
+                    //写入数据
+                    if (mainType == "正式") {
+                        mainTime = mainTime + " 正式报";
+                        mainMaxInt = calcMaxInt(mainMagnitude, mainDepth);
+                        $("#mainTime").text(mainTime);
+                        $("#mainEpicenter").text(mainEpicenter);
+                        document.getElementById("mainDepth").innerHTML = mainDepth + '<font size="3">&nbsp;km</font>';
+                        document.getElementById("mainMagnitude").innerHTML = '<font size="4">M</font>' + mainMagnitude;
+                        $("#mainMaxInt").css("background-color", intColor[mainMaxInt].bkcolor);
+                        document.getElementById("mainMaxInt").innerHTML = '<span style="position:relative; top:-2px">' + mainMaxInt + "</span>";
+                    }else if (mainType == "自动"){
+                        mainDepth = "?";
+                        mainTime = mainTime + " 自动报";
+                        $("#mainTime").text(mainTime);
+                        $("#mainEpicenter").text(mainEpicenter);
+                        document.getElementById("mainDepth").innerHTML = mainDepth + '<font size="3">&nbsp;km</font>';
+                        document.getElementById("mainMagnitude").innerHTML = '<font size="4">M</font>' + mainMagnitude;
+                        $("#mainMaxInt").css("background-color", "#444444");
+                        document.getElementById("mainMaxInt").innerHTML = '<span style="position:relative; top:-2px">' + "-" + "</span>";
+                    };
+                });
+            };
+
+            //剩下的行
+            for (ii = 4; ii <= 50; ii++) {
+                        $("#subBar" + Number(ii - 1)).after('<div id="subBar' + ii + '"><div id="subLeft' + ii + '"><div id="subTime' + ii + '">01/01 00:00</div><div id="subEpicenter' + ii + '">载入中</div><div id="subMagnitude' + ii + '">M0.0</div></div><div id="subMaxInt' + ii + '">-</div></div>')
+            };
+
+            function getSubData() {
+                $.getJSON("https://api.wolfx.jp/cenc_eqlist.json?" + new Date().getTime(), function(json) {
+                    for (i = 2; i <= 50; i++) {
+                        subTime = eval("json.No" + i + ".time");
+                        subTime = subTime.substring(5, 16);
+                        subTime = subTime.replace(/-/g, '/');
+                        subEpicenter = eval("json.No" + i + ".location");
+                        subMagnitude = eval("json.No" + i + ".magnitude");
+                        subDepth = eval("json.No" + i + ".depth");
+                        subMaxInt = calcMaxInt(subMagnitude, subDepth);
+                        calcSubEpicenterFontSize(subEpicenter, i);
+                        $("#subTime" + i).text(subTime);
+                        $("#subEpicenter" + i).text(subEpicenter);
+                        $("#subMagnitude" + i).text("M" + subMagnitude);
+                        $("#subMaxInt" + i).text(subMaxInt);
+                        $("#subMaxInt" + i).css("background-color", intColor[subMaxInt].bkcolor);
+                    }
+                })
+            };
+
+            //计算sub最大烈度
+            function calcMaxInt(calcMagnitude, calcDepth) {
+                numa = (calcMagnitude) / 2.08 * 2.82;
+                numb = (calcDepth) * -0.013;
+                maxInt = Math.round(numa + numb);
+                if (maxInt > 12) maxInt = 12;
+                if (maxInt < 1) maxInt = 1;
+                return (maxInt);
+            };
+
+            //subEpicenter 字体大小自适应
+            function calcSubEpicenterFontSize(epicenter, locate) {
+                if (epicenter.length >= 10) {
+                    $("#subEpicenter" + locate).css("font-size", "16px")
+                    $("#subEpicenter" + locate).css("top", "4px");
+                } else {
+                    $("#subEpicenter" + locate).css("font-size", "20px")
+                }
+            };
+
+            //初始化运行函数 & 计时器
+            getMainData();
+            getSubData();
+            setInterval(getMainData, 5000);
+            setInterval(getSubData, 5000);
+        </script>
+    </body>
 </html>
