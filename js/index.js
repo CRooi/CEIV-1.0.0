@@ -737,7 +737,7 @@ const bbGeoJson = {
         "properties": {},
         "geometry": {
             "type": "Point",
-            "coordinates": [106.39434814453125, 29.80132623415949]
+            "coordinates": [106.3944963, 29.81081081]
         }
     }]
 };
