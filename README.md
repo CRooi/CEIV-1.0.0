@@ -13,7 +13,7 @@
 ## ✅演示站点
 https://app.projectbs.cn/ceiv/index-formal.html
 
-https://bousai.cn/CEIV-1.0.0/index-formal.html (备用)
+https://bousai.cn/CEIV-1.0.0/index.html (备用)
 
 ## ⚠️开源协议
 本项目仅可**独立使用**，请勿用于网页（软件）镶嵌等场景。
