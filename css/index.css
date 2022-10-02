@@ -1,15 +1,3 @@
-@font-face {
-    font-family:"ysbth";
-    src:url("https://bousai.cn/fonts/YouSheBiaoTiHei-2.ttf") format("truetype");
-}
-@font-face {
-    font-family:"oppo-H";
-    src:url("../font/OPPOSans-H.woff2") format("woff2");
-}
-@font-face {
-    font-family:"oppo-B";
-    src:url("../font/OPPOSans-B.woff2") format("woff2");
-}
 ::-webkit-scrollbar {
     width:0;
     height:0;
