@@ -1,4 +1,4 @@
-var version = "1.0.0 LTS";
+var version = "1.0.0 LTS2";
 var apiVertion = "formal";
 var exp = false;
 
@@ -132,6 +132,7 @@ function initProgram() {
     }
 }
 initProgram();
+
 //init mapbox
 mapboxgl.accessToken = 'pk.eyJ1IjoieW93b3QiLCJhIjoiY2tkNG10ZnpmMTNuYTJwcGJja2w2aTVuYSJ9.9QRtVncQVTbedZZBz3pUeA';
 const map = new mapboxgl.Map({
@@ -188,12 +189,19 @@ var cencSta = false;
 var iclSta = false;
 var currentTime;
 
+function getServerDate() {
+    $.getJSON("https://api.wolfx.jp/ntp.json?timestamp=" + Date.now(), function(json) {
+        var date_str = json.CST.str;
+        var date_date = new Date(date_str);
+        currentTime = Date.parse(date_date) - 1000;
+})}
+getServerDate();
+
 function getCurrentTime() {
-    currentTime = new Date().valueOf()
+    currentTime += 1000;
 }
 setInterval(getCurrentTime, 1000);
-//
-//
+
 function cencDataGet() {
     $.getJSON("https://api.projectbs.cn/v2/ceic/get_data.json?" + currentTime,
     function(json) {
@@ -389,6 +397,7 @@ function fitWaveBounds() {
         ]);
     }
 }
+
 setInterval(fitWaveBounds, 5000);
 function loadEewBar() {
     if (iclSta == false) {
@@ -592,9 +601,9 @@ function settingsCancel() {
 function Rad(d) {
     return d * Math.PI / 180.0; //经纬度转换成三角函数中度分表形式。
 }
+
 //计算距离，参数分别为第一点的纬度，经度；第二点的纬度，经度
 function getDistance(lat1, lng1, lat2, lng2) {
-
     var radLat1 = Rad(lat1);
     var radLat2 = Rad(lat2);
     var a = radLat1 - radLat2;
@@ -605,6 +614,7 @@ function getDistance(lat1, lng1, lat2, lng2) {
     //s=s.toFixed(4);
     return s;
 }
+
 var countdownId = "";
 var localInt;
 var feel;
@@ -640,31 +650,31 @@ function countDown() {
             $("#countDown").css("color","#fff");
             $("#countDown_Border").css("border","2px solid #fff");
         }else if (localInt >= 1.0 && localInt < 2.0){
-                    feel = "震感微弱";
-                    $("#countDown").css("background-color","#003efa");
-                    $("#countDown").css("color","#fff");
+            feel = "震感微弱";
+            $("#countDown").css("background-color","#003efa");
+            $("#countDown").css("color","#fff");
             $("#countDown_Border").css("border","2px solid #fff");
-                }else if (localInt >= 2.0 && localInt < 3.0){
-                    feel = "高楼层有震感";
-                    $("#countDown").css("background-color","#ffc02c");
-$("#countDown").css("color","#fff");
+        }else if (localInt >= 2.0 && localInt < 3.0){
+            feel = "高楼层有震感";
+            $("#countDown").css("background-color","#ffc02c");
+            $("#countDown").css("color","#fff");
             $("#countDown_Border").css("border","2px solid #fff");
-                }else if (localInt >= 3.0 && localInt < 4.0){
-                    feel = "震感较强";
-                    $("#countDown").css("background-color","#ff771a");
-                    $("#countDown").css("color","#fff");
+        }else if (localInt >= 3.0 && localInt < 4.0){
+            feel = "震感较强";
+            $("#countDown").css("background-color","#ff771a");
+            $("#countDown").css("color","#fff");
             $("#countDown_Border").css("border","2px solid #fff");
-                }else if (localInt >= 4.0 && localInt < 5.0){
-                    feel = "震感强烈";
-                    $("#countDown").css("background-color","#ff420f");
-                    $("#countDown").css("color","#fff");
+        }else if (localInt >= 4.0 && localInt < 5.0){
+            feel = "震感强烈";
+            $("#countDown").css("background-color","#ff420f");
+            $("#countDown").css("color","#fff");
             $("#countDown_Border").css("border","2px solid #fff");
-                }else if (localInt >= 5.0){
-                feel = "震感极强";
-                    $("#countDown").css("background-color","#ff420f");//11
-                    $("#countDown").css("color","#fff");
+        }else if (localInt >= 5.0){
+            feel = "震感极强";
+            $("#countDown").css("background-color","#ff420f");//11
+            $("#countDown").css("color","#fff");
             $("#countDown_Border").css("border","2px solid #fff");
-                }
+        }
     }
 }
 
@@ -683,6 +693,7 @@ function countdownRun() {
     if (cd >= 999) cd = 999;
     document.getElementById("countDown_Number").innerHTML = cd;
 }
+
 var IPName = "",
 IPLat = "",
 IPLon = "";
@@ -708,10 +719,9 @@ function geoIP() {
         // setCookie("localLon", localLon);
     })
 }
+
 function bbzdDisplay() {
     if (!bbzd) {
-        //document.getElementById("bbshindo").src = "//app.projectbs.cn/ceiv/bbshindo_new.html";
-        //console.log("123");
         $("#bbshindo").css("height", "0px");
         $("#bbshindo").css("width", "0px");
         setInterval(function() {
@@ -730,6 +740,7 @@ function bbzdDisplay() {
     }
 }
 bbzdDisplay();
+
 const bbGeoJson = {
     "type": "FeatureCollection",
     "features": [{
@@ -747,7 +758,6 @@ for (const feature of bbGeoJson.features) {
     // create a HTML element for each feature
     const el = document.createElement('div');
     el.className = 'bbshindoMapPoint';
-
     // make a marker for each feature and add to the map
     new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
 };
@@ -827,6 +837,7 @@ function calclocalshindocolor(shindo, level) {
         return compute(level);
     }
 }
+
 function calclocalpgacolor(pga) {
     // var localpga = pga.toFixed(1);
     if (pga <= "0.01") {
@@ -913,56 +924,50 @@ function calclocalpgacolor(pga) {
         return compute(level);
     }
 }
-// var latestTime;
-// function bbshindoMapPointDisplayFirst() {
-//  $.getJSON("https://api.projectbs.cn/red68/latest.json?" + currentTime,
-//  function(json) {
-//      latestTime = json.time.latest;
-//      latestTime = new Date(latestTime);
-//      latestTime = latestTime.getTime(latestTime);
-//  })
-// }
-// bbshindoMapPointDisplayFirst();
 
 function getTimeYmd(timeNum) {
-    var y, m, d, h, mm, s;
-    var date = new Date(timeNum);
-    y = date.getFullYear();
-    m = date.getMonth() + 1;
-    d = date.getDate();
-    h = date.getHours();
-    mm = date.getMinutes();
-    s = date.getSeconds();
-    m = m < 10 ? "0" + m: m;
-    d = d < 10 ? "0" + d: d;
-    h = h < 10 ? "0" + h: h;
-    mm = mm < 10 ? "0" + mm: mm;
-    s = s < 10 ? "0" + s: s;
-    var timeStr = y + m + d + h + mm + s;
-    return timeStr;
+    var nowdate = new Date(timeNum);
+    var year = nowdate.getFullYear();
+    var month = nowdate.getMonth() + 1;
+    var day = Number(nowdate.getDate());
+    var hours = nowdate.getHours();
+    var mins = nowdate.getMinutes();
+    var secs = nowdate.getSeconds();
+    if (month < 10) {
+        month = "0" + month;
+    } else {
+        month = String(month);
+    }
+    if (day < 10) {
+        day = "0" + day;
+    } else {
+        day = String(day);
+    }
+    if (hours < 10) {
+        hours = "0" + hours;
+    } else {
+        hours = String(hours);
+    }
+    if (mins < 10) {
+        mins = "0" + mins;
+    } else {
+        mins = String(mins);
+    }
+    if (secs < 10) {
+        secs = "0" + secs;
+    } else {
+        secs = String(secs);
+    }
+    var servertime = year + month + day + hours + mins + secs;
+    return servertime;
 }
 
-function bbTimeUpdate() {
-    latestTime += 1000;
-    return getTimeYmd(latestTime);
-}
-
-// var bbCalcshindo;
-// var bbPGA;
-// function bbshindoMapPointDisplay() {
-//  $.getJSON("https://api.projectbs.cn/red68/latest.json?" + currentTime,
-//  function(json) {
-//      bbCalcshindo = json.calcshindo;
-//      bbPGA = json.pga;
-//      if (bbzdMap == "shindo") $(".bbshindoMapPoint").css("background-color", calclocalshindocolor(bbCalcshindo, bbCalcshindo - parseInt(bbCalcshindo)));
-//      if (bbzdMap == "PGA") $(".bbshindoMapPoint").css("background-color", calclocalpgacolor(bbPGA));
-//  })
-// }
 function bbzdCbCheck() {
     bbzdCbStatus = $('#bbzd').is(":checked");
     if (bbzdCbStatus) $("#bbzdMap").removeAttr("disabled");
     if (!bbzdCbStatus) $("#bbzdMap").attr("disabled", "disabled");
 }
+
 //全屏
 function fullScreen() {
     var element = document.documentElement;
@@ -976,6 +981,7 @@ function fullScreen() {
         element.webkitRequestFullscreen();
     }
 }
+
 //退出全屏
 function exitFullScreen() {
     if (document.exitFullscreen) {
@@ -989,6 +995,7 @@ function exitFullScreen() {
     }
 
 }
+
 var i = 1;
 function fullScreenF() {
     if (i == 1) {
@@ -1015,7 +1022,7 @@ function fullScreenCheck() {
 setInterval(fullScreenCheck, 1000);
 
 function currentTimeDisplay() {
-    $.getJSON("https://api.projectbs.cn/red68/latest.json?" + currentTime,
+    $.getJSON("https://api.wolfx.jp/red68/" + getTimeYmd(currentTime) + ".json",
     function(json) {
         latestTimeDetail = json.create_at;
         document.getElementById("currentTime").innerHTML = latestTimeDetail;
@@ -1026,13 +1033,14 @@ function currentTimeDisplay() {
         if (!iclSta) {
             $("#currentTime").css("color", "white");
         }
-        bbPGA = json.max_acc;
+        bbPGA = json.max_pga;
         bbCalcshindo = (2 * Math.log10(bbPGA) + 0.94);
         if (bbzdMap == "shindo") $(".bbshindoMapPoint").css("background-color", calclocalshindocolor(bbCalcshindo, bbCalcshindo - parseInt(bbCalcshindo)));
         if (bbzdMap == "PGA") $(".bbshindoMapPoint").css("background-color", calclocalpgacolor(bbPGA));
     })
 }
 setInterval(currentTimeDisplay, 1000);
+
 function backToEpicenter(){
     if (iclSta){
         //console.log("fitWaveBounds");
