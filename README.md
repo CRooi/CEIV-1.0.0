@@ -1,5 +1,5 @@
-# CEIV (Chinese Earthquake Information Viewer)
-🌐 一个开源的中国地震信息可视化项目。
+# CEIV | 中国地震信息
+🌐 开源的中国地震信息可视化项目。
 
 基于HTML、JavaScript、Mapbox GL JS。
 
@@ -14,6 +14,9 @@
 https://bousai.cn/CEIV-1.0.0/index.html 【推荐使用】
 
 https://app.projectbs.cn/ceiv/index-formal.html 【已弃用】
+
+## ✅ 截图
+![ceiv.png](https://s2.loli.net/2022/11/09/LyV8WfbPoBMI57z.png)
 
 ## ⚠️ 开源协议
 本项目仅可**独立使用**，请勿用于网页（软件）镶嵌等场景。
