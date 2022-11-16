@@ -1,44 +1,47 @@
-var version = "1.0.0 LTS2";
+var version = "1.0.0 LTS3";
 var apiVertion = "formal";
 var exp = false;
 
 //定义烈度配色
 const intColor = {
-    "1": {
-        "bkcolor": "#9bc4e4"
+    "0":{
+        "bkcolor":"#444444"
     },
-    "2": {
-        "bkcolor": "#00a0f1"
+    "1":{
+        "bkcolor":"#9bc4e4"
     },
-    "3": {
-        "bkcolor": "#0062f5"
+    "2":{
+        "bkcolor":"#00a0f1"
     },
-    "4": {
-        "bkcolor": "#2de161"
+    "3":{
+        "bkcolor":"#0062f5"
     },
-    "5": {
-        "bkcolor": "#1cac5d"
+    "4":{
+        "bkcolor":"#2de161"
     },
-    "6": {
-        "bkcolor": "#bdb93b"
+    "5":{
+        "bkcolor":"#1cac5d"
     },
-    "7": {
-        "bkcolor": "#ffba3d"
+    "6":{
+        "bkcolor":"#ffbd2b"
     },
-    "8": {
-        "bkcolor": "#c38b2c"
+    "7":{
+        "bkcolor":"#ff992b"
     },
-    "9": {
-        "bkcolor": "#c75622"
+    "8":{
+        "bkcolor":"#fa5151"
     },
-    "10": {
-        "bkcolor": "#ff000d"
+    "9":{
+        "bkcolor":"#f4440d"
     },
-    "11": {
-        "bkcolor": "#c20007"
+    "10":{
+        "bkcolor":"#ff000d"
     },
-    "12": {
-        "bkcolor": "#fd2fc2"
+    "11":{
+        "bkcolor":"#c20007"
+    },
+    "12":{
+        "bkcolor":"#fd2fc2"
     }
 };
 
@@ -187,18 +190,20 @@ var iclType;
 
 var cencSta = false;
 var iclSta = false;
+var delta = 0;
 var currentTime;
 
 function getServerDate() {
-    $.getJSON("https://api.wolfx.jp/ntp.json?timestamp=" + Date.now(), function(json) {
+    $.getJSON("https://api.wolfx.jp/ntp.json", function(json) {
         var date_str = json.CST.str;
         var date_date = new Date(date_str);
-        currentTime = Date.parse(date_date) - 1000;
+        var timestamps = Date.parse(date_date);
+        delta = Date.now() - timestamps;
 })}
 getServerDate();
 
 function getCurrentTime() {
-    currentTime += 1000;
+    currentTime = Date.now() - delta - 1000;
 }
 setInterval(getCurrentTime, 1000);
 

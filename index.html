@@ -27,7 +27,6 @@
             <iframe src="https://bousai.cn/LocalShindo/index.html" id="bbshindo" scrolling="no" frameBorder=0 style="width:302px"></iframe>
             <div id="currentTime">2080-01-01 00:00:00</div>
         </div>
-        <!--<iframe src="https://app.projectbs.cn/ceiv/newlist.html" id="list" frameBorder=0></iframe>-->
         <div id="list">
             <div id="mainBar">
             <div id="mainLeft">
@@ -98,7 +97,6 @@
         </div>
         <script>
             console.log("Chinese Earthquake List 2.0.0\nPowered By Yorushi & Yowot")
-
             //第一行
             function getMainData() {
                 $.getJSON("https://api.projectbs.cn/v2/ceic/get_data.json?" + new Date().getTime(), function(json) {
@@ -137,7 +135,7 @@
 
             //剩下的行
             for (ii = 4; ii <= 50; ii++) {
-                        $("#subBar" + Number(ii - 1)).after('<div id="subBar' + ii + '"><div id="subLeft' + ii + '"><div id="subTime' + ii + '">01/01 00:00</div><div id="subEpicenter' + ii + '">载入中</div><div id="subMagnitude' + ii + '">M0.0</div></div><div id="subMaxInt' + ii + '">-</div></div>')
+                $("#subBar" + Number(ii - 1)).after('<div id="subBar' + ii + '"><div id="subLeft' + ii + '"><div id="subTime' + ii + '">01/01 00:00</div><div id="subEpicenter' + ii + '">载入中</div><div id="subMagnitude' + ii + '">M0.0</div></div><div id="subMaxInt' + ii + '">-</div></div>')
             };
 
             function getSubData() {
@@ -162,11 +160,9 @@
 
             //计算sub最大烈度
             function calcMaxInt(calcMagnitude, calcDepth) {
-                numa = (calcMagnitude) / 2.08 * 2.82;
-                numb = (calcDepth) * -0.013;
-                maxInt = Math.round(numa + numb);
-                if (maxInt > 12) maxInt = 12;
-                if (maxInt < 1) maxInt = 1;
+                let numa = 1.65 * calcMagnitude;
+                let numb = calcDepth < 10 ? 1.21 * Math.log10(10) : 1.21 * Math.log10(calcDepth);
+                let maxInt = Math.round(numa / numb);
                 return (maxInt);
             };
 
