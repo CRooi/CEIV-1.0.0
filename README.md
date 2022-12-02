@@ -16,7 +16,7 @@ https://bousai.cn/CEIV-1.0.0/index.html 【推荐使用】
 https://app.projectbs.cn/ceiv/index-formal.html 【已弃用】
 
 ## ✅ 截图
-![ceiv.png](https://s2.loli.net/2022/11/09/LyV8WfbPoBMI57z.png)
+![ceiv.png](https://s2.loli.net/2022/12/02/N82LtUMH6cZgElh.png)
 
 ## ⚠️ 开源协议
 本项目仅可**独立使用**，请勿用于网页（软件）镶嵌等场景。
