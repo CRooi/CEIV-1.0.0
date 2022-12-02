@@ -1,4 +1,4 @@
-var version = "1.0.0 LTS3";
+var version = "1.0.0 Release4";
 var apiVertion = "formal";
 var exp = false;
 
@@ -54,6 +54,7 @@ if (apiVertion == "formal"){
     if (exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 正式接口 实验版<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
     if (!exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 正式接口<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
 }
+
 addEventListener("load",function(){
     setTimeout(function(){
         $("#loading_Background").fadeTo("slow", 0);
@@ -77,6 +78,7 @@ if (apiVertion == "formal"){
 document.ontouchmove = function(e) {
     e.preventDefault();
 }
+
 var cdi;
 var localName;
 var localLat;
@@ -156,6 +158,7 @@ map.dragRotate.disable();
 // disable map rotation using touch rotation gesture
 map.touchZoomRotate.disableRotation();
 //init mapbox finish
+
 //var
 var bbzdMap;
 var bound;
@@ -170,7 +173,6 @@ var cencMaxInt;
 var cencMd5;
 var cencMd51;
 var cencMd52;
-
 var iclEventId;
 var iclUpdates;
 var iclLat;
@@ -187,7 +189,6 @@ var iclMd5;
 var iclMd51;
 var iclMd52;
 var iclType;
-
 var cencSta = false;
 var iclSta = false;
 var delta = 0;
@@ -246,7 +247,7 @@ function iclDataGet() {
 }
 
 setInterval(cencDataGet, 2000);
-setInterval(iclDataGet, 2000);
+//setInterval(iclDataGet, 2000);
 
 //随机数
 function randomFrom(lowerValue, upperValue) {
@@ -844,89 +845,90 @@ function calclocalshindocolor(shindo, level) {
 }
 
 function calclocalpgacolor(pga) {
-    // var localpga = pga.toFixed(1);
-    if (pga <= "0.01") {
+    if (pga <= (0.01)) { 
         return "rgb(0, 6, 209)";
-    } else if (pga == 0.02) {
+    } else if(pga == (0.02)) {
         return "rgb(0, 33, 186)";
-    } else if (pga > (0.02) && pga <= (0.05)) {
+    } else if(pga > (0.02) && pga <= (0.05)) {
         let level = (pga * 10 - 0.2) * 0.333333;
-        var a = d3.rgb(0, 45, 223);
-        var b = d3.rgb(0, 108, 202);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(0, 45, 223);    
+        var b = d3.rgb(0, 108, 202);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
-    } else if (pga > (0.05) && pga <= (0.1)) {
+    } else if(pga > (0.05) && pga <= (0.1)) {
         let level = (pga - 0.05) * 20;
-        var a = d3.rgb(0, 125, 204);
-        var b = d3.rgb(0, 205, 148);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(0, 125, 204);    
+        var b = d3.rgb(0, 205, 148);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
-    } else if (pga > (0.1) && pga <= (0.2)) {
+    } else if(pga > (0.1) && pga <= (0.2)) {
         let level = (pga - 0.1) * 10;
-        var a = d3.rgb(2, 214, 136);
-        var b = d3.rgb(26, 228, 82);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(2, 214, 136);    
+        var b = d3.rgb(26, 228, 82);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
-    } else if (pga > (0.2) && pga <= (0.5)) {
+    } else if(pga > (0.2) && pga <= (0.5)) {
         let level = (pga - 0.2) * 3.333;
-        var a = d3.rgb(39, 246, 75);
-        var b = d3.rgb(92, 246, 28);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(39, 246, 75);    
+        var b = d3.rgb(92, 246, 28);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
-    } else if (pga > (0.5) && pga <= (1)) {
+    } else if(pga > (0.5) && pga <= (1)) {
         let level = (pga - 0.5) * 2;
-        var a = d3.rgb(111, 251, 24);
-        var b = d3.rgb(179, 250, 12);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(111, 251, 24);    
+        var b = d3.rgb(179, 250, 12);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
-    } else if (pga > (1) && pga <= (2)) {
+    } else if(pga > (1) && pga <= (2)) {
         let level = (pga - 1);
-        var a = d3.rgb(193, 248, 10);
-        var b = d3.rgb(229, 232, 0);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(193, 248, 10);    
+        var b = d3.rgb(229, 232, 0);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
-    } else if (pga > (2) && pga <= (10)) {
+    } else if(pga > (2) && pga <= (10)) {
         let level = (pga - 2) * 0.333;
-        var a = d3.rgb(255, 255, 0);
-        var b = d3.rgb(255, 226, 0);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(255, 255, 0);    
+        var b = d3.rgb(255, 226, 0);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
-    } else if (pga > (10) && pga <= (20)) {
+    } else if(pga > (10) && pga <= (20)) {
         let level = (pga - 10) * 0.1;
-        var a = d3.rgb(255, 217, 0);
-        var b = d3.rgb(225, 180, 0);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(255, 217, 0);    
+        var b = d3.rgb(225, 180, 0);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
-    } else if (pga > (20) && pga <= (50)) {
+    } else if(pga > (20) && pga <= (50)) {
         let level = (pga - 20) * 0.0333;
-        var a = d3.rgb(255, 167, 0);
-        var b = d3.rgb(255, 121, 0);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(255, 167, 0);    
+        var b = d3.rgb(255, 121, 0);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
-    } else if (pga > (50) && pga <= (100)) {
+    } else if(pga > (50) && pga <= (100)) {
         let level = (pga - 50) * 0.02;
-        var a = d3.rgb(255, 105, 0);
-        var b = d3.rgb(255, 75, 0);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(255, 105, 0);    
+        var b = d3.rgb(255, 75, 0);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
-    } else if (pga > (100) && pga <= (200)) {
+    } else if(pga > (100) && pga <= (200)) {
         let level = (pga - 100) * 0.01;
-        var a = d3.rgb(255, 61, 0);
-        var b = d3.rgb(255, 25, 0);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(255, 61, 0);    
+        var b = d3.rgb(255, 25, 0);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
-    } else if (pga > (200) && pga <= (500)) {
+    } else if(pga > (200) && pga <= (500)) {
         let level = (pga - 200) * 0.00333;
-        var a = d3.rgb(250, 20, 0);
-        var b = d3.rgb(220, 0, 0);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(250, 20, 0);    
+        var b = d3.rgb(220, 0, 0);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
-    } else if (pga > (500) && pga <= (1000)) {
+    } else if(pga > (500) && pga <= (1000)) {
         let level = (pga - 500) * 0.002;
-        var a = d3.rgb(210, 0, 0);
-        var b = d3.rgb(160, 0, 0);
-        var compute = d3.interpolate(a, b);
+        var a = d3.rgb(210, 0, 0);    
+        var b = d3.rgb(160, 0, 0);      
+        var compute = d3.interpolate(a, b);  
         return compute(level);
+    } else if(pga > (1000)) {
+        return "rgb(160, 0, 0)";
     }
 }
 
