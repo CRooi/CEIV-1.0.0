@@ -247,7 +247,7 @@ function iclDataGet() {
 }
 
 setInterval(cencDataGet, 2000);
-//setInterval(iclDataGet, 2000);
+//setInterval(iclDataGet, 2000); // Disable icl
 
 //随机数
 function randomFrom(lowerValue, upperValue) {
@@ -290,7 +290,7 @@ function iclCheck() {
         }
     }
 }
-setInterval(iclCheck, 1000);
+//setInterval(iclCheck, 1000); // Disable icl
 
 function iclRun() {
     //console.log("eew,map");
@@ -386,7 +386,7 @@ function iclCancel() {
     $("#countDown").css("width", "0px");
     $("#countDown").css("height", "0px");
 }
-setInterval(iclCancel, 1000);
+//setInterval(iclCancel, 1000); // Disable icl
 
 function fitWaveBounds() {
     if (!iclSta) return;
@@ -404,7 +404,7 @@ function fitWaveBounds() {
     }
 }
 
-setInterval(fitWaveBounds, 5000);
+//setInterval(fitWaveBounds, 5000); // Disable icl
 function loadEewBar() {
     if (iclSta == false) {
         $("#eewBar").css("opacity", "0");
@@ -433,7 +433,7 @@ function loadEewBar() {
         document.getElementById("eewBar_shindo").innerHTML = iclMaxInt2;
     }
 }
-setInterval(loadEewBar, 1000);
+//setInterval(loadEewBar, 1000); // Disable icl
 
 //写cookies
 function setCookie(name, value) {
