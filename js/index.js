@@ -1,4 +1,4 @@
-var version = "1.0.0 Release4";
+var version = "1.0.0 Release5";
 var apiVertion = "formal";
 var exp = false;
 
@@ -180,7 +180,6 @@ var iclLon;
 var iclDepth;
 var iclEpicenter;
 var iclStartAt;
-var iclStartAt2;
 var iclMagnitude;
 var iclMaxInt;
 var iclMaxInt2;
@@ -236,7 +235,6 @@ function iclDataGet() {
         iclDepth = Math.round(iclDepth);
         iclEpicenter = json.ICL.epicenter;
         iclStartAt = json.ICL.startAt;
-        iclStartAt2 = json.ICL.startAt2;
         iclMagnitude = json.ICL.magnitude;
         iclMaxInt = json.ICL.maxInt;
         iclMaxInt2 = Math.round(iclMaxInt);
