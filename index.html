@@ -102,7 +102,7 @@
             function getMainData() {
                 $.getJSON("https://api.wolfx.jp/cenc_eqlist.json?" + new Date().getTime(), function(json) {
                     mainTime = eval("json.No1.time");
-                    mainTime = mainTime.substring(5, 19);
+                    //mainTime = mainTime.substring(5, 19);
                     mainTime = mainTime.replace(/-/g, '/');
                     mainEpicenter = eval("json.No1.location");
                     mainMagnitude = eval("json.No1.magnitude");
@@ -160,7 +160,7 @@
                 $.getJSON("https://api.wolfx.jp/cenc_eqlist.json?" + new Date().getTime(), function(json) {
                     for (i = 2; i <= 50; i++) {
                         subTime = eval("json.No" + i + ".time");
-                        subTime = subTime.substring(5, 19);
+                        //subTime = subTime.substring(5, 19);
                         subTime = subTime.replace(/-/g, '/');
                         subEpicenter = eval("json.No" + i + ".location");
                         subMagnitude = eval("json.No" + i + ".magnitude");
