@@ -100,6 +100,23 @@
             console.log("Chinese Earthquake List 2.0.0\nPowered By Yorushi & Yowot")
             //第一行
             function getMainData() {
+                $.getJSON("https://api.wolfx.jp/cenc_eqlist.json?" + new Date().getTime(), function(json) {
+                    mainTime = eval("json.No1.time");
+                    mainTime = mainTime.substring(5, 19);
+                    mainTime = mainTime.replace(/-/g, '/');
+                    mainEpicenter = eval("json.No1.location");
+                    mainMagnitude = eval("json.No1.magnitude");
+                    mainDepth = eval("json.No1.depth");
+                    mainMaxInt = calcMaxInt(mainMagnitude, mainDepth);
+                    $("#mainTime").text(mainTime);
+                    $("#mainEpicenter").text(mainEpicenter);
+                    document.getElementById("mainDepth").innerHTML = mainDepth + '<font size="3">&nbsp;km</font>';
+                    document.getElementById("mainMagnitude").innerHTML = '<font size="4">M</font>' + mainMagnitude;
+                    $("#mainMaxInt").css("background-color", intColor[mainMaxInt].bkcolor);
+                    document.getElementById("mainMaxInt").innerHTML = '<span style="position:relative; top:-2px">' + mainMaxInt + "</span>";
+                });
+            }
+            /*function getMainData() {
                 $.getJSON("https://api.projectbs.cn/v2/ceic/get_data.json?" + new Date().getTime(), function(json) {
                     mainType = json.data.type;
                     mainDepth = json.data.depth;
@@ -121,7 +138,7 @@
                         document.getElementById("mainMagnitude").innerHTML = '<font size="4">M</font>' + mainMagnitude;
                         $("#mainMaxInt").css("background-color", intColor[mainMaxInt].bkcolor);
                         document.getElementById("mainMaxInt").innerHTML = '<span style="position:relative; top:-2px">' + mainMaxInt + "</span>";
-                    }else if (mainType == "自动"){
+                    } else if (mainType == "自动"){
                         mainDepth = "?";
                         mainTime = mainTime + " 自动报";
                         $("#mainTime").text(mainTime);
@@ -132,7 +149,7 @@
                         document.getElementById("mainMaxInt").innerHTML = '<span style="position:relative; top:-2px">' + "-" + "</span>";
                     };
                 });
-            };
+            };*/
 
             //剩下的行
             for (ii = 4; ii <= 50; ii++) {
@@ -143,7 +160,7 @@
                 $.getJSON("https://api.wolfx.jp/cenc_eqlist.json?" + new Date().getTime(), function(json) {
                     for (i = 2; i <= 50; i++) {
                         subTime = eval("json.No" + i + ".time");
-                        subTime = subTime.substring(5, 16);
+                        subTime = subTime.substring(5, 19);
                         subTime = subTime.replace(/-/g, '/');
                         subEpicenter = eval("json.No" + i + ".location");
                         subMagnitude = eval("json.No" + i + ".magnitude");

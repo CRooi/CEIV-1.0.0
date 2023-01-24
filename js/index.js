@@ -1,4 +1,4 @@
-var version = "1.0.0 Release5";
+var version = "1.0.0 Release6-b1";
 var apiVertion = "formal";
 var exp = false;
 
