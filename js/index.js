@@ -1,4 +1,4 @@
-var version = "1.0.0 Release6";
+var version = "1.0.0 Release7";
 var apiVertion = "formal";
 var exp = false;
 
@@ -208,17 +208,17 @@ function getCurrentTime() {
 setInterval(getCurrentTime, 1000);
 
 function cencDataGet() {
-    $.getJSON("https://api.projectbs.cn/v2/ceic/get_data.json?" + currentTime,
+    $.getJSON("https://api.wolfx.jp/cenc_eqlist.json?" + currentTime,
     function(json) {
-        cencType = json.data.type;
-        cencLat = json.data.epicenterLat;
-        cencLon = json.data.epicenterLon;
-        cencDepth = json.data.depth;
-        cencEpicenter = json.data.epicenter;
-        cencStartAt = json.data.occurTime;
-        cencMagnitude = json.data.magnitude;
-        cencMaxInt = json.data.maxInt;
-        cencMd5 = json.data.md5;
+        cencType = "正式";
+        cencLat = json.No1.latitude;
+        cencLon = json.No1.longitude;
+        cencDepth = json.No1.depth;
+        cencEpicenter = json.No1.location;
+        cencStartAt = json.No1.time;
+        cencMagnitude = json.No1.magnitude;
+        cencMaxInt = calcMaxInt(cencMagnitude, cencDepth);
+        cencMd5 = cencStartAt;
     })
 }
 
