@@ -11,7 +11,7 @@
 - ℹ️ 重庆北碚测站信息整合 (https://api.wolfx.jp/red68.html)
 
 ## ✅ 演示站点
-https://bousai.cn/CEIV-1.0.0/index.html 【推荐使用】
+https://bousai.cn/CEIV-1.0.0/index.html
 
 ## ✅ 截图
 ![ceiv.png](https://s2.loli.net/2022/12/02/N82LtUMH6cZgElh.png)
