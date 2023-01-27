@@ -13,8 +13,6 @@
 ## ✅ 演示站点
 https://bousai.cn/CEIV-1.0.0/index.html 【推荐使用】
 
-https://app.projectbs.cn/ceiv/index-formal.html 【已弃用】
-
 ## ✅ 截图
 ![ceiv.png](https://s2.loli.net/2022/12/02/N82LtUMH6cZgElh.png)
 
