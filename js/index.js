@@ -1,4 +1,4 @@
-var version = "1.0.0 Release7";
+var version = "1.0.0 Release8";
 var apiVertion = "formal";
 var exp = false;
 
@@ -210,13 +210,18 @@ setInterval(getCurrentTime, 1000);
 function cencDataGet() {
     $.getJSON("https://api.wolfx.jp/cenc_eqlist.json?" + currentTime,
     function(json) {
-        cencType = "正式";
-        cencLat = json.No1.latitude;
-        cencLon = json.No1.longitude;
-        cencDepth = json.No1.depth;
-        cencEpicenter = json.No1.location;
-        cencStartAt = json.No1.time;
-        cencMagnitude = json.No1.magnitude;
+        cencType = json.No0.type;
+        if (cencType == "reviewed") {
+            cencType = "正式";
+        } else if (mainType == "automatic") {
+            cencType = "自动";
+        }
+        cencLat = json.No0.latitude;
+        cencLon = json.No0.longitude;
+        cencDepth = json.No0.depth;
+        cencEpicenter = json.No0.location;
+        cencStartAt = json.No0.time;
+        cencMagnitude = json.No0.magnitude;
         cencMaxInt = calcMaxInt(cencMagnitude, cencDepth);
         cencMd5 = cencStartAt;
     })
