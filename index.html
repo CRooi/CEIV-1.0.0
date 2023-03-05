@@ -111,25 +111,18 @@
                     mainMagnitude = json.No0.magnitude;
                     mainTime = json.No0.time;
                     //写入数据
-                    if (mainType == "reviewed") {
-                        mainTime = mainTime + " 正式报";
-                        mainMaxInt = calcMaxInt(mainMagnitude, mainDepth);
-                        $("#mainTime").text(mainTime);
-                        $("#mainEpicenter").text(mainEpicenter);
-                        document.getElementById("mainDepth").innerHTML = mainDepth + '<font size="3">&nbsp;km</font>';
-                        document.getElementById("mainMagnitude").innerHTML = '<font size="4">M</font>' + mainMagnitude;
-                        $("#mainMaxInt").css("background-color", intColor[mainMaxInt].bkcolor);
-                        document.getElementById("mainMaxInt").innerHTML = '<span style="position:relative; top:-2px">' + mainMaxInt + "</span>";
-                    } else if (mainType == "automatic") {
-                        mainDepth = "?";
+                    mainMaxInt = calcMaxInt(mainMagnitude, mainDepth);
+                    $("#mainEpicenter").text(mainEpicenter);
+                    document.getElementById("mainDepth").innerHTML = mainDepth + '<font size="3">&nbsp;km</font>';
+                    document.getElementById("mainMagnitude").innerHTML = '<font size="4">M</font>' + mainMagnitude;
+                    $("#mainMaxInt").css("background-color", intColor[mainMaxInt].bkcolor);
+                    document.getElementById("mainMaxInt").innerHTML = '<span style="position:relative; top:-2px">' + mainMaxInt + "</span>";
+                    if (mainType == "automatic") {
                         mainTime = mainTime + " 自动报";
-                        $("#mainTime").text(mainTime);
-                        $("#mainEpicenter").text(mainEpicenter);
-                        document.getElementById("mainDepth").innerHTML = mainDepth + '<font size="3">&nbsp;km</font>';
-                        document.getElementById("mainMagnitude").innerHTML = '<font size="4">M</font>' + mainMagnitude;
-                        $("#mainMaxInt").css("background-color", "#444444");
-                        document.getElementById("mainMaxInt").innerHTML = '<span style="position:relative; top:-2px">' + "-" + "</span>";
+                    } else {
+                        mainTime = mainTime + " 正式报";
                     };
+                    $("#mainTime").text(mainTime);
                     for (i = 2; i <= 50; i++) {
                         subTime = eval("json.No" + i + ".time");
                         subEpicenter = eval("json.No" + i + ".location");
