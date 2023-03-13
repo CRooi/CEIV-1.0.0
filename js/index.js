@@ -1,4 +1,4 @@
-var version = "1.0.0 Release9";
+var version = "1.0.0 Release10";
 var apiVertion = "formal";
 var exp = false;
 
@@ -935,43 +935,6 @@ function calclocalpgacolor(pga) {
     }
 }
 
-function getTimeYmd(timeNum) {
-    var nowdate = new Date(timeNum);
-    var year = nowdate.getFullYear();
-    var month = nowdate.getMonth() + 1;
-    var day = Number(nowdate.getDate());
-    var hours = nowdate.getHours();
-    var mins = nowdate.getMinutes();
-    var secs = nowdate.getSeconds();
-    if (month < 10) {
-        month = "0" + month;
-    } else {
-        month = String(month);
-    }
-    if (day < 10) {
-        day = "0" + day;
-    } else {
-        day = String(day);
-    }
-    if (hours < 10) {
-        hours = "0" + hours;
-    } else {
-        hours = String(hours);
-    }
-    if (mins < 10) {
-        mins = "0" + mins;
-    } else {
-        mins = String(mins);
-    }
-    if (secs < 10) {
-        secs = "0" + secs;
-    } else {
-        secs = String(secs);
-    }
-    var servertime = year + month + day + hours + mins + secs;
-    return servertime;
-}
-
 function bbzdCbCheck() {
     bbzdCbStatus = $('#bbzd').is(":checked");
     if (bbzdCbStatus) $("#bbzdMap").removeAttr("disabled");
@@ -1032,7 +995,7 @@ function fullScreenCheck() {
 setInterval(fullScreenCheck, 1000);
 
 function currentTimeDisplay() {
-    $.getJSON("https://api.wolfx.jp/red68/" + getTimeYmd(currentTime) + ".json",
+    $.getJSON("https://api.wolfx.jp/bb_seis.json",
     function(json) {
         latestTimeDetail = json.create_at;
         document.getElementById("currentTime").innerHTML = latestTimeDetail;
@@ -1044,7 +1007,7 @@ function currentTimeDisplay() {
             $("#currentTime").css("color", "white");
         }
         bbPGA = json.max_pga;
-        bbCalcshindo = (2 * Math.log10(bbPGA) + 0.94);
+        bbCalcshindo = json.max_calcshindo;
         if (bbzdMap == "shindo") $(".bbshindoMapPoint").css("background-color", calclocalshindocolor(bbCalcshindo, bbCalcshindo - parseInt(bbCalcshindo)));
         if (bbzdMap == "PGA") $(".bbshindoMapPoint").css("background-color", calclocalpgacolor(bbPGA));
     })
