@@ -45,7 +45,7 @@ body {
     width: calc(100% - 410px);
     height: calc(100% - 40px);
     float: left;
-    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 10%);
+    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
@@ -88,7 +88,7 @@ body {
     height: calc(100% - 40px);
     z-index: 99991;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 10%);
+    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.1);
     opacity: 1;
     overflow: scroll;
     background-color: #212121;
@@ -106,7 +106,7 @@ body:-webkit-scrollbar {
     bottom: 20px;
     right: 20px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 10%);
+    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.1);
     height: 0px;
     width: 0px;
     z-index: 99993;
@@ -123,7 +123,7 @@ body:-webkit-scrollbar {
     top: 40px;
     left: 40px;
     background-color: #fff;
-    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 10%);
+    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.1);
     width: 360px;
     height: 31px;
     font-size: 20px;
@@ -136,7 +136,7 @@ body:-webkit-scrollbar {
     position: absolute;
     top: 81px;
     left: 40px;
-    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 10%);
+    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.1);
     width: 360px;
     height: 107px;
     border-radius: 10px;
@@ -147,7 +147,7 @@ body:-webkit-scrollbar {
 #eewBar_shindo {
     position: absolute;
     font-family: OPPOSans-H;
-    text-shadow: 0px 4px 10px rgba(0, 0, 0, 30%);
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     top: 0px;
     left: 0px;
     width: 100px;
@@ -211,7 +211,7 @@ body:-webkit-scrollbar {
     z-index: 500;
     height: 30px;
     width: 85px;
-    background-color: rgba(0, 0, 125, 80%);
+    background-color: rgba(0, 0, 125, 0.8);
     border: 2px solid #fff;
     border-radius: 5px;
     margin: 0 auto;
@@ -228,7 +228,7 @@ body:-webkit-scrollbar {
     z-index: 500;
     height: 30px;
     width: 85px;
-    background-color: rgba(0, 0, 125, 80%);
+    background-color: rgba(0, 0, 125, 0.8);
     border: 2px solid #fff;
     border-radius: 5px;
     margin: 0 auto;
@@ -245,7 +245,7 @@ body:-webkit-scrollbar {
     z-index: 500;
     height: 30px;
     width: 85px;
-    background-color: rgba(0, 0, 125, 80%);
+    background-color: rgba(0, 0, 125, 0.8);
     border: 2px solid #fff;
     border-radius: 5px;
     margin: 0 auto;
@@ -276,7 +276,7 @@ body:-webkit-scrollbar {
     z-index: 99999991;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 10%);
+    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.1);
 }
 
 #settingsTitle {
@@ -319,7 +319,7 @@ body:-webkit-scrollbar {
     right: 10px;
     height: 30px;
     width: 85px;
-    background-color: rgba(0, 0, 125, 80%);
+    background-color: rgba(0, 0, 125, 0.8);
     border: 2px solid #fff;
     border-radius: 5px;
     margin: 0 auto;
@@ -335,7 +335,7 @@ body:-webkit-scrollbar {
     right: 105px;
     height: 30px;
     width: 85px;
-    background-color: rgba(123, 123, 123, 80%);
+    background-color: rgba(123, 123, 123, 0.8);
     border: 2px solid #fff;
     border-radius: 5px;
     margin: 0 auto;
@@ -529,7 +529,7 @@ a:visited {
     font-size: 64px;
     font-family: OPPOSans-H;
     text-align: center;
-    text-shadow: 0px 4px 10px rgba(0, 0, 0, 30%);
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     border: 3px solid white;
     box-sizing: border-box;
 }
@@ -595,7 +595,7 @@ a:visited {
     font-size: 30px;
     font-family: OPPOSans-H;
     text-align: center;
-    text-shadow: 0px 4px 10px rgba(0, 0, 0, 30%);
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     border: 2px solid white;
     box-sizing: border-box;
 }
