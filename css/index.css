@@ -609,7 +609,7 @@ a:visited {
 
 [id^="subEpicenter"] {
     position: relative;
-    top: 2px;
+    top: -3px;
     left: 4px;
     font-size: 20px;
 }
