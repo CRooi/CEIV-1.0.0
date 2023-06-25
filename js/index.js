@@ -1,47 +1,47 @@
-var version = "1.0.0 Release10";
+var version = "1.0.1";
 var apiVertion = "formal";
 var exp = false;
 
 //定义烈度配色
 const intColor = {
-    "0":{
-        "bkcolor":"#444444"
+    "0": {
+        "bkcolor": "#444444"
     },
-    "1":{
-        "bkcolor":"#9bc4e4"
+    "1": {
+        "bkcolor": "#9bc4e4"
     },
-    "2":{
-        "bkcolor":"#00a0f1"
+    "2": {
+        "bkcolor": "#00a0f1"
     },
-    "3":{
-        "bkcolor":"#0062f5"
+    "3": {
+        "bkcolor": "#0062f5"
     },
-    "4":{
-        "bkcolor":"#2de161"
+    "4": {
+        "bkcolor": "#2de161"
     },
-    "5":{
-        "bkcolor":"#1cac5d"
+    "5": {
+        "bkcolor": "#1cac5d"
     },
-    "6":{
-        "bkcolor":"#ffbd2b"
+    "6": {
+        "bkcolor": "#ffbd2b"
     },
-    "7":{
-        "bkcolor":"#ff992b"
+    "7": {
+        "bkcolor": "#ff992b"
     },
-    "8":{
-        "bkcolor":"#fa5151"
+    "8": {
+        "bkcolor": "#fa5151"
     },
-    "9":{
-        "bkcolor":"#f4440d"
+    "9": {
+        "bkcolor": "#f4440d"
     },
-    "10":{
-        "bkcolor":"#ff000d"
+    "10": {
+        "bkcolor": "#ff000d"
     },
-    "11":{
-        "bkcolor":"#c20007"
+    "11": {
+        "bkcolor": "#c20007"
     },
-    "12":{
-        "bkcolor":"#fd2fc2"
+    "12": {
+        "bkcolor": "#fd2fc2"
     }
 };
 
@@ -50,32 +50,32 @@ if (apiVertion == "test") {
     if (!exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 测试接口<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
 }
 
-if (apiVertion == "formal"){
+if (apiVertion == "formal") {
     if (exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 正式接口 实验版<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
     if (!exp) document.getElementById("loading_Text2").innerHTML = "CEIV " + version + " 正式接口<br>提示：首次使用或长时间未使用时，加载时间可能会较长";
 }
 
-addEventListener("load",function(){
-    setTimeout(function(){
+addEventListener("load", function () {
+    setTimeout(function () {
         $("#loading_Background").fadeTo("slow", 0);
-    },1000);
-    setTimeout(function(){
+    }, 1000);
+    setTimeout(function () {
         $("#loading_Background").css("height", "0px");
         $("#loading_Background").css("width", "0px");
-    },2000)
+    }, 2000)
 });
 
 if (apiVertion == "test") {
     if (exp) document.getElementById("settingsVertion").innerHTML = "CEIV " + version + " 测试接口 实验版";
     if (!exp) document.getElementById("settingsVertion").innerHTML = "CEIV " + version + " 测试接口";
 }
- 
-if (apiVertion == "formal"){
+
+if (apiVertion == "formal") {
     if (exp) document.getElementById("settingsVertion").innerHTML = "CEIV " + version + " 正式接口 实验版";
     if (!exp) document.getElementById("settingsVertion").innerHTML = "CEIV " + version + " 正式接口";
 }
 
-document.ontouchmove = function(e) {
+document.ontouchmove = function (e) {
     e.preventDefault();
 }
 
@@ -139,11 +139,11 @@ function initProgram() {
 initProgram();
 
 //init mapbox
-mapboxgl.accessToken = 'pk.eyJ1IjoieW93b3QiLCJhIjoiY2tkNG10ZnpmMTNuYTJwcGJja2w2aTVuYSJ9.9QRtVncQVTbedZZBz3pUeA';
+mapboxgl.accessToken = 'pk.eyJ1IjoidGVua3l1Y2hpbWF0YSIsImEiOiJjbGZucW5zZjMwN2x2NDN0MnJoM3hzc2dqIn0.lbEzGwXCMa6lEflvHCsAyg';
 const map = new mapboxgl.Map({
     container: 'map',
     // container ID
-    style: 'mapbox://styles/yowot/cl583m0az002714pthclz95pf',
+    style: 'mapbox://styles/tenkyuchimata/clfnr7tun00dm01qio6c4jvan',
     // style URL
     center: [107.79942839007867, 37.093496518166944],
     //[lng, lat]
@@ -188,18 +188,18 @@ var iclMd5;
 var iclMd51;
 var iclMd52;
 var iclType;
-var cencSta = false;
 var iclSta = false;
 var delta = 0;
 var currentTime;
 
 function getServerDate() {
-    $.getJSON("https://api.wolfx.jp/ntp.json", function(json) {
+    $.getJSON("https://api.wolfx.jp/ntp.json", function (json) {
         var date_str = json.CST.str;
         var date_date = new Date(date_str);
         var timestamps = Date.parse(date_date);
         delta = Date.now() - timestamps;
-})}
+    })
+}
 getServerDate();
 
 function getCurrentTime() {
@@ -209,28 +209,28 @@ setInterval(getCurrentTime, 1000);
 
 function cencDataGet() {
     $.getJSON("https://api.wolfx.jp/cenc_eqlist.json?" + currentTime,
-    function(json) {
-        cencType = json.No0.type;
-        if (cencType == "reviewed") {
-            cencType = "正式";
-        } else if (mainType == "automatic") {
-            cencType = "自动";
-        }
-        cencLat = json.No0.latitude;
-        cencLon = json.No0.longitude;
-        cencDepth = json.No0.depth;
-        cencEpicenter = json.No0.location;
-        cencStartAt = json.No0.time;
-        cencMagnitude = json.No0.magnitude;
-        cencMaxInt = calcMaxInt(cencMagnitude, cencDepth);
-        cencMd5 = cencStartAt;
-    })
+        function (json) {
+            cencType = json.No0.type;
+            if (cencType == "reviewed") {
+                cencType = "正式";
+            } else if (mainType == "automatic") {
+                cencType = "自动";
+            }
+            cencLat = json.No0.latitude;
+            cencLon = json.No0.longitude;
+            cencDepth = json.No0.depth;
+            cencEpicenter = json.No0.location;
+            cencStartAt = json.No0.time;
+            cencMagnitude = json.No0.magnitude;
+            cencMaxInt = calcMaxInt(cencMagnitude, cencDepth);
+            cencMd5 = cencStartAt;
+        })
 }
 
 function iclDataGet() {
     if (apiVertion == "test") var url = "https://app.projectbs.cn/ceiv/test.json?";
     if (apiVertion == "formal") var url = "https://api.projectbs.cn/icl/get_data.json?";
-    $.getJSON(url + currentTime, function(json) {
+    $.getJSON(url + currentTime, function (json) {
         iclType = json.ICL.type;
         iclEventId = json.ICL.eventId;
         iclUpdates = json.ICL.updates;
@@ -313,7 +313,7 @@ function iclRun() {
         speed: 0.8,
         curve: 1
     });
-new Notification(iclType,{body:iclEpicenter+"正发生"+iclMagnitude+"级地震，"+localName+"预估烈度"+localInt+"，"+feel+"。"});
+    new Notification(iclType, { body: iclEpicenter + "正发生" + iclMagnitude + "级地震，" + localName + "预估烈度" + localInt + "，" + feel + "。" });
 }
 
 var sClosed;
@@ -325,7 +325,7 @@ function iclWaveExpand() {
         pWave.setRadius(timeMinus / 1000 * 6000);
     } else {
         clearInterval(pandTimer);
-        if (sClosed == true) {} else {
+        if (sClosed == true) { } else {
             sClosed = true;
             pClosed = true;
             sWave.remove();
@@ -343,7 +343,7 @@ function iclWaveDraw() {
     }
     sClosed = false;
     pClosed = false;
-    sWave = new MapboxCircle([ + iclLon, +iclLat], 1, {
+    sWave = new MapboxCircle([+ iclLon, +iclLat], 1, {
         editable: false,
         minRadius: 1,
         maxRadius: 9999999,
@@ -352,7 +352,7 @@ function iclWaveDraw() {
         fillOpacity: 0.7,
         fillColor: '#242424'
     }).addTo(map);
-    pWave = new MapboxCircle([ + iclLon, +iclLat], 1, {
+    pWave = new MapboxCircle([+ iclLon, +iclLat], 1, {
         editable: false,
         minRadius: 1,
         maxRadius: 9999999,
@@ -454,14 +454,6 @@ function getCookie(name) {
     else return null;
 }
 
-//删除cookies 
-function delCookie(name) {
-    var exp = new Date();
-    exp.setTime(exp.getTime() - 1);
-    var cval = getCookie(name);
-    if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
-}
-
 function infoPopup(type, msg) {
     if (type == "warning") {
         $("#announcement").css("background-color", "#c40a04");
@@ -479,21 +471,12 @@ function infoPopup(type, msg) {
         top: '10px'
     });
 
-    setTimeout(function() {
+    setTimeout(function () {
         $("#announcement").animate({
             top: '-40px'
         });
     },
-    5000)
-}
-
-function announcement() {
-    $.getJSON("https://app.projectbs.cn/ceiv/announcement.json?" + currentTime,
-    function(json) {
-        announcementType = json.type;
-        announcementMsg = json.msg;
-
-    })
+        5000)
 }
 
 function cookiesCheck() {
@@ -503,10 +486,10 @@ function cookiesCheck() {
     }
 }
 
-setTimeout(function() {
+setTimeout(function () {
     cookiesCheck();
 },
-5000);
+    5000);
 
 function settings() {
     //display bkgd
@@ -577,19 +560,19 @@ function settingsSaveClose() {
     setCookie("localLat", localLat);
     setCookie("localLon", localLon);
     $("#settingsBackground").fadeTo("slow", 0.0);
-    setTimeout(function() {
+    setTimeout(function () {
         $("#settingsBackground").css("width", "0%");
         $("#settingsBackground").css("height", "0%");
     },
-    1000)
+        1000)
 
     $("#settingsWindow").animate({
         right: '-300px'
     });
-    setTimeout(function() {
+    setTimeout(function () {
         location.reload();
     },
-    500)
+        500)
 }
 
 function settingsCancel() {
@@ -597,11 +580,11 @@ function settingsCancel() {
     $("#settings_LocalInputLat").val(localLat);
     $("#settings_LocalInputLon").val(localLon);
     $("#settingsBackground").fadeTo("slow", 0.0);
-    setTimeout(function() {
+    setTimeout(function () {
         $("#settingsBackground").css("width", "0%");
         $("#settingsBackground").css("height", "0%");
     },
-    1000);
+        1000);
     $("#settingsWindow").animate({
         right: '-300px'
     });
@@ -624,7 +607,6 @@ function getDistance(lat1, lng1, lat2, lng2) {
     return s;
 }
 
-var countdownId = "";
 var localInt;
 var feel;
 function countDown() {
@@ -653,36 +635,36 @@ function countDown() {
         document.getElementById("countDown_LocalName").innerHTML = '<span style="position: relative; top: 3px;"><ion-icon name="navigate-circle-outline"></ion-icon></span>' + localName + "&nbsp;预估烈度" + localInt + "度";
         $("#countDown").css("width", "350px");
         $("#countDown").css("height", "300px");
-        if (localInt < 1.0){
+        if (localInt < 1.0) {
             feel = "无震感";
-            $("#countDown").css("background-color","#00b9b9");
-            $("#countDown").css("color","#fff");
-            $("#countDown_Border").css("border","2px solid #fff");
-        }else if (localInt >= 1.0 && localInt < 2.0){
+            $("#countDown").css("background-color", "#00b9b9");
+            $("#countDown").css("color", "#fff");
+            $("#countDown_Border").css("border", "2px solid #fff");
+        } else if (localInt >= 1.0 && localInt < 2.0) {
             feel = "震感微弱";
-            $("#countDown").css("background-color","#003efa");
-            $("#countDown").css("color","#fff");
-            $("#countDown_Border").css("border","2px solid #fff");
-        }else if (localInt >= 2.0 && localInt < 3.0){
+            $("#countDown").css("background-color", "#003efa");
+            $("#countDown").css("color", "#fff");
+            $("#countDown_Border").css("border", "2px solid #fff");
+        } else if (localInt >= 2.0 && localInt < 3.0) {
             feel = "高楼层有震感";
-            $("#countDown").css("background-color","#ffc02c");
-            $("#countDown").css("color","#fff");
-            $("#countDown_Border").css("border","2px solid #fff");
-        }else if (localInt >= 3.0 && localInt < 4.0){
+            $("#countDown").css("background-color", "#ffc02c");
+            $("#countDown").css("color", "#fff");
+            $("#countDown_Border").css("border", "2px solid #fff");
+        } else if (localInt >= 3.0 && localInt < 4.0) {
             feel = "震感较强";
-            $("#countDown").css("background-color","#ff771a");
-            $("#countDown").css("color","#fff");
-            $("#countDown_Border").css("border","2px solid #fff");
-        }else if (localInt >= 4.0 && localInt < 5.0){
+            $("#countDown").css("background-color", "#ff771a");
+            $("#countDown").css("color", "#fff");
+            $("#countDown_Border").css("border", "2px solid #fff");
+        } else if (localInt >= 4.0 && localInt < 5.0) {
             feel = "震感强烈";
-            $("#countDown").css("background-color","#ff420f");
-            $("#countDown").css("color","#fff");
-            $("#countDown_Border").css("border","2px solid #fff");
-        }else if (localInt >= 5.0){
+            $("#countDown").css("background-color", "#ff420f");
+            $("#countDown").css("color", "#fff");
+            $("#countDown_Border").css("border", "2px solid #fff");
+        } else if (localInt >= 5.0) {
             feel = "震感极强";
-            $("#countDown").css("background-color","#ff420f");//11
-            $("#countDown").css("color","#fff");
-            $("#countDown_Border").css("border","2px solid #fff");
+            $("#countDown").css("background-color", "#ff420f");//11
+            $("#countDown").css("color", "#fff");
+            $("#countDown_Border").css("border", "2px solid #fff");
         }
     }
 }
@@ -695,57 +677,57 @@ function countdownRun() {
     cd = parseInt(distance / 4 - timeMinusSec);
     if (cd <= 0) {
         cd = "0";
-        document.getElementById("countDown_Text").innerHTML = feel+"<br>"+"地震横波已抵达";
-    }else{
-        document.getElementById("countDown_Text").innerHTML = feel+"<br>"+"地震横波将抵达";
+        document.getElementById("countDown_Text").innerHTML = feel + "<br>" + "地震横波已抵达";
+    } else {
+        document.getElementById("countDown_Text").innerHTML = feel + "<br>" + "地震横波将抵达";
     }
     if (cd >= 999) cd = 999;
     document.getElementById("countDown_Number").innerHTML = cd;
 }
 
 var IPName = "",
-IPLat = "",
-IPLon = "";
+    IPLat = "",
+    IPLon = "";
 function geoIP() {
     $.getJSON("https://api.wolfx.jp/geoip.php?" + currentTime,
-    function(json) {
-        if (json.province_name_zh == json.city_zh) IPName = json.province_name_zh;
-        if (json.province_name_zh !== json.city_zh) IPName = json.province_name_zh + json.city_zh;
-        if (json.province_name_zh == null) {
-            IPName = "请手动输入";
-            infoPopup("warning", "所在地地名获取失败，请手动输入。")
-        }
-        IPLat = json.latitude;
-        IPLon = json.longitude;
-        $("#settings_LocalInputName").val(IPName);
-        $("#settings_LocalInputLat").val(IPLat);
-        $("#settings_LocalInputLon").val(IPLon);
-        // localName = $("#settings_LocalInputName").val();
-        // localLat = $("#settings_LocalInputLat").val();
-        // localLon = $("#settings_LocalInputLon").val();
-        // setCookie("localName", localName);
-        // setCookie("localLat", localLat);
-        // setCookie("localLon", localLon);
-    })
+        function (json) {
+            if (json.province_name_zh == json.city_zh) IPName = json.province_name_zh;
+            if (json.province_name_zh !== json.city_zh) IPName = json.province_name_zh + json.city_zh;
+            if (json.province_name_zh == null) {
+                IPName = "请手动输入";
+                infoPopup("warning", "所在地地名获取失败，请手动输入。")
+            }
+            IPLat = json.latitude;
+            IPLon = json.longitude;
+            $("#settings_LocalInputName").val(IPName);
+            $("#settings_LocalInputLat").val(IPLat);
+            $("#settings_LocalInputLon").val(IPLon);
+            // localName = $("#settings_LocalInputName").val();
+            // localLat = $("#settings_LocalInputLat").val();
+            // localLon = $("#settings_LocalInputLon").val();
+            // setCookie("localName", localName);
+            // setCookie("localLat", localLat);
+            // setCookie("localLon", localLon);
+        })
 }
 
 function bbzdDisplay() {
     if (!bbzd) {
         $("#bbshindo").css("height", "0px");
         $("#bbshindo").css("width", "0px");
-        setInterval(function() {
+        setInterval(function () {
             $(".bbshindoMapPoint").css("height", "0px");
             $(".bbshindoMapPoint").css("width", "0px");
         },
-        1000)
+            1000)
     } else {
         $("#bbshindo").css("height", "152px");
         $("#bbshindo").css("width", "302px");
-        setInterval(function() {
+        setInterval(function () {
             $(".bbshindoMapPoint").css("height", "10px");
             $(".bbshindoMapPoint").css("width", "10px");
         },
-        1000)
+            1000)
     }
 }
 bbzdDisplay();
@@ -996,26 +978,26 @@ setInterval(fullScreenCheck, 1000);
 
 function currentTimeDisplay() {
     $.getJSON("https://api.wolfx.jp/bb_seis.json",
-    function(json) {
-        latestTimeDetail = json.create_at;
-        document.getElementById("currentTime").innerHTML = latestTimeDetail;
-        if (iclSta) {
-            if (iclType == "地震预警（测试）") $("#currentTime").css("color", "#ffcc65");
-            if (iclType == "地震预警") $("#currentTime").css("color", "white");
-        }
-        if (!iclSta) {
-            $("#currentTime").css("color", "white");
-        }
-        bbPGA = json.max_pga;
-        bbCalcshindo = json.max_calcshindo;
-        if (bbzdMap == "shindo") $(".bbshindoMapPoint").css("background-color", calclocalshindocolor(bbCalcshindo, bbCalcshindo - parseInt(bbCalcshindo)));
-        if (bbzdMap == "PGA") $(".bbshindoMapPoint").css("background-color", calclocalpgacolor(bbPGA));
-    })
+        function (json) {
+            latestTimeDetail = json.create_at;
+            document.getElementById("currentTime").innerHTML = latestTimeDetail;
+            if (iclSta) {
+                if (iclType == "地震预警（测试）") $("#currentTime").css("color", "#ffcc65");
+                if (iclType == "地震预警") $("#currentTime").css("color", "white");
+            }
+            if (!iclSta) {
+                $("#currentTime").css("color", "white");
+            }
+            bbPGA = json.max_pga;
+            bbCalcshindo = json.max_calcshindo;
+            if (bbzdMap == "shindo") $(".bbshindoMapPoint").css("background-color", calclocalshindocolor(bbCalcshindo, bbCalcshindo - parseInt(bbCalcshindo)));
+            if (bbzdMap == "PGA") $(".bbshindoMapPoint").css("background-color", calclocalpgacolor(bbPGA));
+        })
 }
 setInterval(currentTimeDisplay, 1000);
 
-function backToEpicenter(){
-    if (iclSta){
+function backToEpicenter() {
+    if (iclSta) {
         //console.log("fitWaveBounds");
         pb = (pWave.getBounds());
         pbj = eval(pb);
@@ -1027,14 +1009,14 @@ function backToEpicenter(){
         [pwnelon + 1, pwnelat + 1] // northeastern corner of the bounds
         ]);
     }
-    if (!iclSta){
+    if (!iclSta) {
         var randomzoom = randomFrom(4.0, 5.0);
-    map.flyTo({
-        center: [cencLon, cencLat],
-        essential: true,
-        speed: 0.8,
-        zoom: randomzoom,
-        curve: 1
-    });
+        map.flyTo({
+            center: [cencLon, cencLat],
+            essential: true,
+            speed: 0.8,
+            zoom: randomzoom,
+            curve: 1
+        });
     }
 }
