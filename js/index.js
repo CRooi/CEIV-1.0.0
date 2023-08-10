@@ -1,4 +1,4 @@
-var version = "1.0.1";
+var version = "1.0.2";
 var apiVertion = "formal";
 var exp = false;
 
@@ -193,7 +193,7 @@ var delta = 0;
 var currentTime;
 
 function getServerDate() {
-    $.getJSON("https://api.wolfx.jp/ntp.json", function (json) {
+    $.getJSON("https://api.wolfx.jp/ntp.json?" + Date.now(), function (json) {
         var date_str = json.CST.str;
         var date_date = new Date(date_str);
         var timestamps = Date.parse(date_date);
@@ -977,7 +977,7 @@ function fullScreenCheck() {
 setInterval(fullScreenCheck, 1000);
 
 function currentTimeDisplay() {
-    $.getJSON("https://api.wolfx.jp/bb_seis.json",
+    $.getJSON("https://api.wolfx.jp/bb_seis.json?" + currentTime,
         function (json) {
             latestTimeDetail = json.create_at;
             document.getElementById("currentTime").innerHTML = latestTimeDetail;
