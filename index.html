@@ -12,7 +12,7 @@
     <script src="https://wolfx.jp/js/d3-interpolate.v1.min.js"></script>
     <script src="https://wolfx.jp/js/jquery-3.6.1.min.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="./css/index.css">
-    <title>CEIV</title>
+    <title>CEIV 1.0.3</title>
     <link rel="shortcut icon" href="https://app.projectbs.cn/ceiv/images/favicon.ico">
 </head>
 
@@ -120,13 +120,13 @@
         };
 
         function getData() {
-            $.getJSON("https://api.wolfx.jp/cenc_eqlist.json?" + new Date().getTime(), function (json) {
-                mainType = json.No0.type;
-                mainDepth = json.No0.depth;
-                mainEpicenter = json.No0.location;
-                mainStartAt = json.No0.time;
-                mainMagnitude = json.No0.magnitude;
-                mainTime = json.No0.time;
+            $.getJSON("https://api.wolfx.jp/cenc_eqlist.json?" + Date.now(), function (json) {
+                mainType = json.No1.type;
+                mainDepth = json.No1.depth;
+                mainEpicenter = json.No1.location;
+                mainStartAt = json.No1.time;
+                mainMagnitude = json.No1.magnitude;
+                mainTime = json.No1.time;
                 //写入数据
                 mainMaxInt = calcMaxInt(mainMagnitude, mainDepth);
                 $("#mainEpicenter").text(mainEpicenter);
