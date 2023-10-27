@@ -1,4 +1,4 @@
-var version = "1.0.2";
+var version = "1.0.3";
 var apiVertion = "formal";
 var exp = false;
 
@@ -189,39 +189,44 @@ var iclMd51;
 var iclMd52;
 var iclType;
 var iclSta = false;
-var delta = 0;
 var currentTime;
 
-function getServerDate() {
-    $.getJSON("https://api.wolfx.jp/ntp.json?" + Date.now(), function (json) {
-        var date_str = json.CST.str;
-        var date_date = new Date(date_str);
-        var timestamps = Date.parse(date_date);
-        delta = Date.now() - timestamps;
-    })
+function currentTimeDisplay() {
+    currentTime = Date.now();
+    $.getJSON("https://api.wolfx.jp/bb_seis.json?" + currentTime,
+        function (json) {
+            latestTimeDetail = json.create_at;
+            document.getElementById("currentTime").innerHTML = latestTimeDetail;
+            if (iclSta) {
+                if (iclType == "地震预警（测试）") $("#currentTime").css("color", "#ffcc65");
+                if (iclType == "地震预警") $("#currentTime").css("color", "white");
+            }
+            if (!iclSta) {
+                $("#currentTime").css("color", "white");
+            }
+            bbPGA = json.max_pga;
+            bbCalcshindo = json.max_calcshindo;
+            if (bbzdMap == "shindo") $(".bbshindoMapPoint").css("background-color", calclocalshindocolor(bbCalcshindo, bbCalcshindo - parseInt(bbCalcshindo)));
+            if (bbzdMap == "PGA") $(".bbshindoMapPoint").css("background-color", calclocalpgacolor(bbPGA));
+        })
 }
-getServerDate();
-
-function getCurrentTime() {
-    currentTime = Date.now() - delta - 1000;
-}
-setInterval(getCurrentTime, 1000);
+setInterval(currentTimeDisplay, 1000);
 
 function cencDataGet() {
     $.getJSON("https://api.wolfx.jp/cenc_eqlist.json?" + currentTime,
         function (json) {
-            cencType = json.No0.type;
+            cencType = json.No1.type;
             if (cencType == "reviewed") {
                 cencType = "正式";
             } else if (mainType == "automatic") {
                 cencType = "自动";
             }
-            cencLat = json.No0.latitude;
-            cencLon = json.No0.longitude;
-            cencDepth = json.No0.depth;
-            cencEpicenter = json.No0.location;
-            cencStartAt = json.No0.time;
-            cencMagnitude = json.No0.magnitude;
+            cencLat = json.No1.latitude;
+            cencLon = json.No1.longitude;
+            cencDepth = json.No1.depth;
+            cencEpicenter = json.No1.location;
+            cencStartAt = json.No1.time;
+            cencMagnitude = json.No1.magnitude;
             cencMaxInt = calcMaxInt(cencMagnitude, cencDepth);
             cencMd5 = cencStartAt;
         })
@@ -249,8 +254,8 @@ function iclDataGet() {
     })
 }
 
-setInterval(cencDataGet, 2000);
-//setInterval(iclDataGet, 2000); // Disable icl
+setInterval(cencDataGet, 5000);
+//setInterval(iclDataGet, 1000); // Disable icl
 
 //随机数
 function randomFrom(lowerValue, upperValue) {
@@ -264,7 +269,7 @@ function cencCheck() {
         cencRun();
     }
 }
-setInterval(cencCheck, 500)
+setInterval(cencCheck, 1000)
 
 function cencRun() {
     $(".marker").remove();
@@ -975,26 +980,6 @@ function fullScreenCheck() {
 }
 
 setInterval(fullScreenCheck, 1000);
-
-function currentTimeDisplay() {
-    $.getJSON("https://api.wolfx.jp/bb_seis.json?" + currentTime,
-        function (json) {
-            latestTimeDetail = json.create_at;
-            document.getElementById("currentTime").innerHTML = latestTimeDetail;
-            if (iclSta) {
-                if (iclType == "地震预警（测试）") $("#currentTime").css("color", "#ffcc65");
-                if (iclType == "地震预警") $("#currentTime").css("color", "white");
-            }
-            if (!iclSta) {
-                $("#currentTime").css("color", "white");
-            }
-            bbPGA = json.max_pga;
-            bbCalcshindo = json.max_calcshindo;
-            if (bbzdMap == "shindo") $(".bbshindoMapPoint").css("background-color", calclocalshindocolor(bbCalcshindo, bbCalcshindo - parseInt(bbCalcshindo)));
-            if (bbzdMap == "PGA") $(".bbshindoMapPoint").css("background-color", calclocalpgacolor(bbPGA));
-        })
-}
-setInterval(currentTimeDisplay, 1000);
 
 function backToEpicenter() {
     if (iclSta) {
