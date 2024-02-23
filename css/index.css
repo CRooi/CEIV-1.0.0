@@ -465,29 +465,14 @@ a:visited {
 
 #loading_Background {
     position: absolute;
-    height: 100%;
     width: 100%;
+    min-height: 100vh;
+    max-height: 100vh;
     background-color: #222;
     z-index: 9999999999;
-}
-
-#loading_Logo {
-    position: absolute;
-    height: 53px;
-    width: 300px;
-    top: 50%;
-    margin-top: -53px;
-    left: 50%;
-    margin-left: -150px;
-}
-
-#loading_Text {
-    position: absolute;
-    top: 352px;
-    font-size: 30px;
-    color: #fff;
-    text-align: center;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #loading_Text2 {
@@ -496,6 +481,10 @@ a:visited {
     bottom: 10px;
     color: #fff;
     text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: .5;
 }
 
 /* Chinese Earthquake List */
