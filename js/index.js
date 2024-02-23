@@ -193,7 +193,7 @@ var currentTime;
 
 function currentTimeDisplay() {
     currentTime = Date.now();
-    $.getJSON("https://api.wolfx.jp/bb_seis.json?" + currentTime,
+    $.getJSON("https://api.wolfx.jp/CQ_BEB_00.json?" + currentTime,
         function (json) {
             latestTimeDetail = json.create_at;
             document.getElementById("currentTime").innerHTML = latestTimeDetail;
