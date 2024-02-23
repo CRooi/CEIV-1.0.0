@@ -204,8 +204,8 @@ function currentTimeDisplay() {
             if (!iclSta) {
                 $("#currentTime").css("color", "white");
             }
-            bbPGA = json.max_pga;
-            bbCalcshindo = json.max_calcshindo;
+            bbPGA = json.Max_PGA;
+            bbCalcshindo = json.Max_CalcShindo;
             if (bbzdMap == "shindo") $(".bbshindoMapPoint").css("background-color", calclocalshindocolor(bbCalcshindo, bbCalcshindo - parseInt(bbCalcshindo)));
             if (bbzdMap == "PGA") $(".bbshindoMapPoint").css("background-color", calclocalpgacolor(bbPGA));
         })
