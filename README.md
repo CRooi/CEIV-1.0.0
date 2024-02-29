@@ -15,7 +15,7 @@
 - 🚨 中国地震预警信息整合
   - ⭕️ 横、纵波可视化显示
   - 1️⃣ 自定位置横波抵达倒数、烈度粗估
-- ℹ️ 重庆北碚测站信息整合 (https://api.wolfx.jp/red68.html)
+- ℹ️ 重庆北碚测站信息整合 (https://api.wolfx.jp/seis.html)
 
 ## ✅ 演示站点
 https://bousai.cn/CEIV-1.0.0/index.html
